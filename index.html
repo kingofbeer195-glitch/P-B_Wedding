@@ -217,6 +217,62 @@ button.slot:hover img,button.slot:hover video{transform:scale(1.04)}
 .to-env:hover,.to-env:focus-visible{background:var(--rose);color:#fff}
 .to-env svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5}
 #env.open .hint{opacity:0}
+/* cartoon couple (chibi, drawn from the pre-wedding photo) */
+.duo{padding:30px 20px 34px}
+.scene{position:relative;width:min(360px,100%);margin:4px auto 0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.scene svg{display:block;width:100%;height:auto;overflow:visible}
+.scene g{transform-box:view-box}
+.duo .cap{font-family:var(--f-script);color:var(--rose);font-size:34px;line-height:1.1;margin-top:6px}
+.duo .tap{font-size:12px;color:var(--ink-soft);margin-top:2px}
+/* backdrop */
+.blades{animation:spin 6s linear infinite}
+.blades.b1{transform-origin:244px 104px}.blades.b2{transform-origin:276px 124px;animation-duration:4.5s}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cloud{animation:drift 18s ease-in-out infinite alternate}
+.cloud.c2{animation-duration:24s;animation-delay:-6s}
+@keyframes drift{from{transform:translateX(-10px)}to{transform:translateX(14px)}}
+.shim{animation:shim 3.6s ease-in-out infinite}
+.shim:nth-of-type(2){animation-delay:1.2s}.shim:nth-of-type(3){animation-delay:2.4s}
+@keyframes shim{0%,100%{opacity:.15;transform:translateX(-4px)}50%{opacity:.9;transform:translateX(4px)}}
+/* couple */
+.bob-b{animation:bob 2.6s ease-in-out infinite;transform-origin:118px 232px}
+.bob-g{animation:bob 2.6s ease-in-out -1.3s infinite;transform-origin:204px 232px}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.hd-b{animation:tiltB 5s ease-in-out infinite;transform-origin:118px 122px}
+.hd-g{animation:tiltG 5s ease-in-out infinite;transform-origin:204px 118px}
+@keyframes tiltB{0%,40%,100%{transform:rotate(0)}55%,80%{transform:rotate(7deg)}}
+@keyframes tiltG{0%,40%,100%{transform:rotate(0)}55%,80%{transform:rotate(-7deg)}}
+.veil{animation:veil 3.2s ease-in-out infinite;transform-origin:106px 58px}
+@keyframes veil{0%,100%{transform:rotate(0) skewY(0)}50%{transform:rotate(-5deg) skewY(-3deg)}}
+.skirt{animation:skirt 2.6s ease-in-out infinite;transform-origin:118px 160px}
+@keyframes skirt{0%,100%{transform:skewX(0)}50%{transform:skewX(-3deg)}}
+/* sunglasses lift onto the head, revealing happy eyes */
+.sg-b{animation:shades 7s ease-in-out infinite;transform-origin:118px 95px}
+.sg-g{animation:shades 7s ease-in-out 3.5s infinite;transform-origin:204px 90px}
+@keyframes shades{0%,62%,100%{transform:none}68%,88%{transform:translateY(-15px) rotate(-4deg)}}
+.glint{animation:glint 3s ease-in-out infinite}
+@keyframes glint{0%,70%,100%{opacity:0}80%{opacity:1}}
+.cheek{animation:blushy 5s ease-in-out infinite}
+@keyframes blushy{0%,40%,100%{opacity:.45}60%,80%{opacity:.85}}
+/* little hearts floating up from their joined hands */
+.fh{animation:fh 3.6s ease-in infinite;opacity:0;transform-box:fill-box!important;transform-origin:center}
+.fh:nth-of-type(2){animation-delay:1.2s}.fh:nth-of-type(3){animation-delay:2.4s}
+@keyframes fh{0%{opacity:0;transform:translate(0,0) scale(.4)}15%{opacity:1;transform:translate(0,-8px) scale(1)}100%{opacity:0;transform:translate(var(--x,0),-70px) scale(.7)}}
+/* entrance: walk in from the sides */
+.rv.in .in-b{animation:walkL 1.1s cubic-bezier(.3,1.2,.5,1) .2s both}
+.rv.in .in-g{animation:walkR 1.1s cubic-bezier(.3,1.2,.5,1) .35s both}
+@keyframes walkL{from{transform:translateX(-60px);opacity:0}to{transform:none;opacity:1}}
+@keyframes walkR{from{transform:translateX(60px);opacity:0}to{transform:none;opacity:1}}
+/* tap: they lean in for a kiss and a big heart pops */
+.big{opacity:0;transform-origin:161px 32px}
+.scene.kiss .hd-b{animation:kissB 2s ease-in-out both}
+.scene.kiss .hd-g{animation:kissG 2s ease-in-out both}
+@keyframes kissB{0%,100%{transform:rotate(0)}25%,75%{transform:rotate(13deg) translateX(4px)}}
+@keyframes kissG{0%,100%{transform:rotate(0)}25%,75%{transform:rotate(-13deg) translateX(-4px)}}
+.scene.kiss .big{animation:bigheart 2s ease both}
+@keyframes bigheart{0%{opacity:0;transform:scale(.2)}25%{opacity:1;transform:scale(1.15)}35%,75%{opacity:1;transform:scale(1)}100%{opacity:0;transform:translate(0,-16px) scale(.9)}}
+.scene.kiss .cheek{animation:none;opacity:1}
+@media (prefers-reduced-motion:reduce){.duo *{animation:none!important}}
 @media (prefers-reduced-motion:reduce){.reveal{animation:none}#petals{display:none}.seal,.hint::before,.rv.in,.rv.in *,.play *,.ico *,.spark,.rings *,.logo,.beat *{animation:none!important}}
 @media (max-width:420px){section{padding:34px 20px}.parents{font-size:14px;gap:6px}.dateblock .day{font-size:60px}.dateblock .side{font-size:16px}}
 </style>
@@ -286,6 +342,148 @@ button.slot:hover img,button.slot:hover video{transform:scale(1.04)}
     <p class="lead">Request the pleasure of your company<br>at their wedding celebration</p>
     <div class="date-en">SUNDAY · <b>17</b> · 01 · 2027</div>
   </header>
+
+  <section class="duo" aria-labelledby="h-duo">
+    <div class="eyebrow" id="h-duo">Bride &amp; Groom</div>
+    <div class="scene" id="scene" role="img" aria-label="การ์ตูนเจ้าสาวและเจ้าบ่าวจับมือกันริมทะเล">
+    <svg viewBox="0 0 320 250" aria-hidden="true">
+      <defs>
+        <clipPath id="arch"><path d="M22 250V122A138 112 0 0 1 298 122V250Z"/></clipPath>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbe3e2"/><stop offset="1" stop-color="#fff6f2"/></linearGradient>
+        <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dfe8ee"/><stop offset="1" stop-color="#eef1f3"/></linearGradient>
+        <path id="hrt" d="M0 6C-5 2.5-6.5-.5-4.5-3-3-4.6-1-4 0-2.4 1-4 3-4.6 4.5-3 6.5-.5 5 2.5 0 6Z"/>
+      </defs>
+
+      <!-- backdrop: reservoir at sunset with the wind turbines from the photo -->
+      <g clip-path="url(#arch)">
+        <rect width="320" height="250" fill="url(#sky)"/>
+        <circle cx="86" cy="78" r="20" fill="#fbd7c0" opacity=".7"/>
+        <g class="cloud" fill="#fff" opacity=".9"><ellipse cx="70" cy="50" rx="22" ry="7"/><ellipse cx="82" cy="45" rx="12" ry="8"/></g>
+        <g class="cloud c2" fill="#fff" opacity=".8"><ellipse cx="200" cy="36" rx="26" ry="7"/><ellipse cx="214" cy="31" rx="13" ry="8"/></g>
+        <g stroke="#d7c3bf" stroke-linecap="round">
+          <path d="M244 104V170" stroke-width="2.4"/><path d="M276 124V170" stroke-width="1.8"/>
+        </g>
+        <g class="blades b1" fill="#e9dbd7"><path d="M244 104l-2-26 2-1 2 1z"/><path d="M244 104l-2-26 2-1 2 1z" transform="rotate(120 244 104)"/><path d="M244 104l-2-26 2-1 2 1z" transform="rotate(240 244 104)"/><circle cx="244" cy="104" r="2.6" fill="#d7c3bf"/></g>
+        <g class="blades b2" fill="#e9dbd7"><path d="M276 124l-1.5-18 1.5-1 1.5 1z"/><path d="M276 124l-1.5-18 1.5-1 1.5 1z" transform="rotate(120 276 124)"/><path d="M276 124l-1.5-18 1.5-1 1.5 1z" transform="rotate(240 276 124)"/><circle cx="276" cy="124" r="2" fill="#d7c3bf"/></g>
+        <rect y="168" width="320" height="4" fill="#cdbdb9"/>
+        <rect y="172" width="320" height="60" fill="url(#sea)"/>
+        <g stroke="#fff" stroke-width="1.6" stroke-linecap="round">
+          <path class="shim" d="M40 186h22M250 192h26"/><path class="shim" d="M70 202h16M262 210h20"/><path class="shim" d="M30 214h14M232 180h14"/>
+        </g>
+        <!-- railing -->
+        <g stroke="#c8b2ac" stroke-width="2" stroke-linecap="round" fill="none">
+          <path d="M22 184H298" stroke-width="2.6"/><path d="M22 198H298"/>
+          <path d="M40 184V218M62 184V218M84 184V218M240 184V218M262 184V218M284 184V218"/>
+        </g>
+        <rect y="218" width="320" height="32" fill="#efe1db"/>
+        <path d="M22 218H298" stroke="#e2cfc8" stroke-width="1.4"/>
+      </g>
+      <path d="M22 250V122A138 112 0 0 1 298 122V250" fill="none" stroke="#e6d3cd" stroke-width="1.4"/>
+      <ellipse cx="161" cy="234" rx="92" ry="6" fill="#d9c0b8" opacity=".55"/>
+
+      <!-- ===== bride ===== -->
+      <g class="in-b"><g class="bob-b">
+        <path class="veil" d="M106 58C76 76 66 140 66 222 86 220 98 196 100 150 101 112 104 84 110 66Z" fill="#fff" fill-opacity=".72" stroke="#eadedb" stroke-width="1"/>
+        <!-- arms -->
+        <path d="M101 130C95 144 92 156 92 168" stroke="#f7d6c4" stroke-width="8" stroke-linecap="round" fill="none"/>
+        <circle cx="92" cy="170" r="4.6" fill="#f7d6c4"/>
+        <path d="M135 132C143 146 150 158 156 166" stroke="#f7d6c4" stroke-width="8" stroke-linecap="round" fill="none"/>
+        <!-- dress -->
+        <g class="skirt">
+          <path d="M99 156C93 184 84 208 78 230Q118 240 158 230C152 208 143 184 137 156Z" fill="#fff" stroke="#e7dbd7" stroke-width="1.2"/>
+          <path d="M108 164C104 188 98 208 95 230M118 164V234M128 164C132 188 138 208 141 230" stroke="#efe5e2" stroke-width="1.2" fill="none"/>
+        </g>
+        <path d="M101 126Q118 120 135 126V134H101Z" fill="#f7d6c4"/>
+        <path d="M100 122L106 120 136 133 138 150H98Z" fill="#fff" stroke="#e7dbd7" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M100 130Q118 124 137 138M99 140Q118 134 138 146" stroke="#efe5e2" stroke-width="1.1" fill="none"/>
+        <rect x="98" y="149" width="40" height="8" fill="#f6ece8" stroke="#e7dbd7" stroke-width="1"/>
+        <rect x="113" y="114" width="10" height="10" rx="3" fill="#f7d6c4"/>
+        <!-- head -->
+        <g class="hd-b">
+          <circle cx="118" cy="56" r="13" fill="#3b2721"/>
+          <circle cx="114" cy="52" r="3" fill="#5a3d33" opacity=".7"/>
+          <circle cx="118" cy="88" r="32" fill="#3b2721"/>
+          <circle cx="88" cy="96" r="4.5" fill="#f7d6c4"/><circle cx="148" cy="96" r="4.5" fill="#f7d6c4"/>
+          <ellipse cx="118" cy="96" rx="28.5" ry="26.5" fill="#fbe1d0"/>
+          <path d="M89 92C88 68 104 58 122 59 138 60 149 72 148 90 141 78 130 73 120 74 112 72 104 74 98 80 94 84 91 88 89 92Z" fill="#3b2721"/>
+          <path d="M91 92c-3 8-2 16 1 22M146 92c3 8 2 16-1 22" stroke="#3b2721" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <circle cx="129" cy="63" r="2.6" fill="#fff" stroke="#efd9c0" stroke-width=".8"/>
+          <path d="M101 98q5.5-5 11 0M124 98q5.5-5 11 0" stroke="#5a3a33" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <ellipse class="cheek" cx="100" cy="108" rx="5.5" ry="3.4" fill="#f29aa8"/>
+          <ellipse class="cheek" cx="136" cy="108" rx="5.5" ry="3.4" fill="#f29aa8"/>
+          <path d="M112 109q6 7 12 0z" fill="#c95b6b" stroke="#8a4040" stroke-width="1.2" stroke-linejoin="round"/>
+          <!-- white cat-eye sunglasses -->
+          <g class="sg-b">
+            <g fill="#3a2f36" stroke="#d8c6c1" stroke-width="3.6" stroke-linejoin="round">
+              <path d="M97 92Q107 88 116 92Q115 101 106.5 101Q98 101 97 92ZM94 89L97 92"/>
+              <path d="M120 92Q129 88 139 92Q138 101 129.5 101Q121 101 120 92ZM139 92L142 89"/>
+            </g>
+            <g fill="#3a2f36" stroke="#fff" stroke-width="2" stroke-linejoin="round">
+              <path d="M97 92Q107 88 116 92Q115 101 106.5 101Q98 101 97 92ZM94 89L97 92"/>
+              <path d="M120 92Q129 88 139 92Q138 101 129.5 101Q121 101 120 92ZM139 92L142 89"/>
+            </g>
+            <path d="M116 93Q118 91 120 93" stroke="#fff" stroke-width="2" fill="none"/>
+            <path class="glint" d="M101 98l5-5M124 98l5-5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+          </g>
+        </g>
+      </g></g>
+
+      <!-- ===== groom ===== -->
+      <g class="in-g"><g class="bob-g">
+        <!-- legs & shoes -->
+        <path d="M190 180h12l-1 46h-10zM206 180h12l-1 46h-10z" fill="#e7d8ca" stroke="#d3bfae" stroke-width="1"/>
+        <ellipse cx="195" cy="229" rx="9" ry="4" fill="#2b2220"/><ellipse cx="213" cy="229" rx="9" ry="4" fill="#2b2220"/>
+        <!-- arms -->
+        <path d="M228 128C233 144 236 160 236 172" stroke="#eadccf" stroke-width="11" stroke-linecap="round" fill="none"/>
+        <circle cx="236" cy="177" r="5" fill="#f2cdb6"/>
+        <path d="M182 128C176 144 170 156 164 164" stroke="#eadccf" stroke-width="11" stroke-linecap="round" fill="none"/>
+        <!-- jacket -->
+        <path d="M181 121Q204 115 227 121L231 186Q204 193 177 186Z" fill="#eee2d6" stroke="#d6c2b2" stroke-width="1.2"/>
+        <path d="M195 120L204 147L213 120Z" fill="#fff"/>
+        <path d="M195 120L204 150L198 156M213 120L204 150L210 156" stroke="#d6c2b2" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
+        <path d="M202 123h4l1.5 17-3.5 6-3.5-6z" fill="#8e2235"/>
+        <path d="M201.5 123h5l-1 3h-3z" fill="#6f1a29"/>
+        <path d="M204 156V190" stroke="#d6c2b2" stroke-width="1"/>
+        <circle cx="206.5" cy="164" r="1.6" fill="#c9b19c"/><circle cx="206.5" cy="174" r="1.6" fill="#c9b19c"/>
+        <rect x="199" y="110" width="10" height="11" rx="3" fill="#f2cdb6"/>
+        <!-- joined hands -->
+        <circle cx="157" cy="167" r="4.6" fill="#f7d6c4"/>
+        <circle cx="162" cy="167" r="5" fill="#f2cdb6"/>
+        <!-- head -->
+        <g class="hd-g">
+          <circle cx="204" cy="82" r="33" fill="#2f211d"/>
+          <circle cx="173" cy="92" r="4.8" fill="#f2cdb6"/><circle cx="235" cy="92" r="4.8" fill="#f2cdb6"/>
+          <ellipse cx="204" cy="92" rx="29" ry="26.5" fill="#f8dac6"/>
+          <path d="M174 88C171 60 190 46 210 47 231 48 242 64 236 88 233 76 224 69 213 70 205 71 199 64 190 70 183 75 177 81 174 88Z" fill="#2f211d"/>
+          <path d="M202 55C213 50 225 54 230 63" stroke="#4b3630" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"/>
+          <path d="M199 69q-6 6-1 13" stroke="#2f211d" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M187 93q5.5-5 11 0M210 93q5.5-5 11 0" stroke="#4a2f27" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <ellipse class="cheek" cx="185" cy="103" rx="5" ry="3.2" fill="#f29aa8"/>
+          <ellipse class="cheek" cx="223" cy="103" rx="5" ry="3.2" fill="#f29aa8"/>
+          <path d="M197 103q7 8 14 0z" fill="#fff" stroke="#7d3d35" stroke-width="1.3" stroke-linejoin="round"/>
+          <!-- black sunglasses -->
+          <g class="sg-g">
+            <path d="M182 86h18l-1.5 8.5a4 4 0 0 1-4 3.5h-7a4 4 0 0 1-4-3.5zM208 86h18l-1.5 8.5a4 4 0 0 1-4 3.5h-7a4 4 0 0 1-4-3.5z" fill="#1f1a1c" stroke="#111" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M200 88Q204 85.5 208 88M182 87l-6-1M226 87l6-1" stroke="#111" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+            <path class="glint" d="M186 95l5-6M212 95l5-6" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+          </g>
+        </g>
+      </g></g>
+
+      <!-- hearts from their hands; big heart on tap -->
+      <g fill="#ef8a95">
+        <use class="fh" href="#hrt" x="160" y="152" style="--x:-12px"/>
+        <use class="fh" href="#hrt" x="160" y="152" style="--x:10px" fill="#f6b8c4"/>
+        <use class="fh" href="#hrt" x="160" y="152" style="--x:-2px" fill="#c0767c"/>
+      </g>
+      <g class="big"><use href="#hrt" transform="translate(161 32) scale(3.2)" fill="#ef8a95" stroke="#fff" stroke-width=".5"/></g>
+    </svg>
+    </div>
+    <div class="cap">Plookrak ♡ Beer</div>
+    <div class="tap">แตะที่เราสองคนสิ ♡</div>
+  </section>
+
+  <div class="rule"></div>
 
   <section aria-labelledby="h-photo">
     <div class="eyebrow">Pre-wedding</div>
@@ -540,6 +738,17 @@ document.querySelector('.sheet').addEventListener('click', e => {
     setTimeout(() => h.remove(), 1700 + k * 90);
   }
 });
+
+/* cartoon couple: tap for a kiss */
+(() => {
+  const sc = document.getElementById('scene'); if (!sc) return;
+  let t;
+  sc.addEventListener('click', () => {
+    if (REDUCE) return;
+    sc.classList.remove('kiss'); void sc.offsetWidth; sc.classList.add('kiss');
+    clearTimeout(t); t = setTimeout(() => sc.classList.remove('kiss'), 2100);
+  });
+})();
 
 /* countdown to 17 Jan 2027 07:00 (Bangkok) */
 const target = Date.parse('2027-01-17T07:00:00+07:00');
