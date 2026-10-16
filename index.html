@@ -264,7 +264,7 @@ button.slot:hover img,button.slot:hover video{transform:scale(1.04)}
 @keyframes walkL{from{transform:translateX(-60px);opacity:0}to{transform:none;opacity:1}}
 @keyframes walkR{from{transform:translateX(60px);opacity:0}to{transform:none;opacity:1}}
 /* tap: they lean in for a kiss and a big heart pops */
-.big{opacity:0;transform-origin:161px 32px}
+.big{opacity:0;transform-origin:161px 44px}
 .scene.kiss .hd-b{animation:kissB 2s ease-in-out both}
 .scene.kiss .hd-g{animation:kissG 2s ease-in-out both}
 @keyframes kissB{0%,100%{transform:rotate(0)}25%,75%{transform:rotate(13deg) translateX(4px)}}
@@ -383,23 +383,23 @@ button.slot:hover img,button.slot:hover video{transform:scale(1.04)}
 
       <!-- ===== bride ===== -->
       <g class="in-b"><g class="bob-b">
-        <path class="veil" d="M106 58C76 76 66 140 66 222 86 220 98 196 100 150 101 112 104 84 110 66Z" fill="#fff" fill-opacity=".72" stroke="#eadedb" stroke-width="1"/>
+        <path class="veil" d="M110 66C88 82 82 140 84 222 98 220 104 196 106 150 107 116 108 92 112 72Z" fill="#fff" fill-opacity=".72" stroke="#eadedb" stroke-width="1"/>
         <!-- arms -->
-        <path d="M101 130C95 144 92 156 92 168" stroke="#f7d6c4" stroke-width="8" stroke-linecap="round" fill="none"/>
-        <circle cx="92" cy="170" r="4.6" fill="#f7d6c4"/>
-        <path d="M135 132C143 146 150 158 156 166" stroke="#f7d6c4" stroke-width="8" stroke-linecap="round" fill="none"/>
+        <path d="M106 130C102 144 100 156 100 166" stroke="#f7d6c4" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+        <circle cx="100" cy="168" r="3.6" fill="#f7d6c4"/>
+        <path d="M130 132C140 146 148 158 155 166" stroke="#f7d6c4" stroke-width="5.5" stroke-linecap="round" fill="none"/>
         <!-- dress -->
         <g class="skirt">
-          <path d="M99 156C93 184 84 208 78 230Q118 240 158 230C152 208 143 184 137 156Z" fill="#fff" stroke="#e7dbd7" stroke-width="1.2"/>
-          <path d="M108 164C104 188 98 208 95 230M118 164V234M128 164C132 188 138 208 141 230" stroke="#efe5e2" stroke-width="1.2" fill="none"/>
+          <path d="M105 155C101 184 95 208 91 230Q118 238 145 230C141 208 135 184 131 155Z" fill="#fff" stroke="#e7dbd7" stroke-width="1.2"/>
+          <path d="M111 164C108 188 104 208 102 231M118 164V235M125 164C128 188 132 208 134 231" stroke="#efe5e2" stroke-width="1.2" fill="none"/>
         </g>
-        <path d="M101 126Q118 120 135 126V134H101Z" fill="#f7d6c4"/>
-        <path d="M100 122L106 120 136 133 138 150H98Z" fill="#fff" stroke="#e7dbd7" stroke-width="1.2" stroke-linejoin="round"/>
-        <path d="M100 130Q118 124 137 138M99 140Q118 134 138 146" stroke="#efe5e2" stroke-width="1.1" fill="none"/>
-        <rect x="98" y="149" width="40" height="8" fill="#f6ece8" stroke="#e7dbd7" stroke-width="1"/>
-        <rect x="113" y="114" width="10" height="10" rx="3" fill="#f7d6c4"/>
+        <path d="M106 126Q118 121 130 126V134H106Z" fill="#f7d6c4"/>
+        <path d="M105 122L110 120 131 132 132 150H104Z" fill="#fff" stroke="#e7dbd7" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M105 130Q118 125 131 136M104 140Q118 135 132 145" stroke="#efe5e2" stroke-width="1.1" fill="none"/>
+        <rect x="104" y="149" width="28" height="7" fill="#f6ece8" stroke="#e7dbd7" stroke-width="1"/>
+        <rect x="114.5" y="113" width="7" height="11" rx="3" fill="#f7d6c4"/>
         <!-- head -->
-        <g class="hd-b">
+        <g class="hd-b"><g transform="translate(118 120) scale(.82) translate(-118 -120)">
           <circle cx="118" cy="56" r="13" fill="#3b2721"/>
           <circle cx="114" cy="52" r="3" fill="#5a3d33" opacity=".7"/>
           <circle cx="118" cy="88" r="32" fill="#3b2721"/>
@@ -409,9 +409,10 @@ button.slot:hover img,button.slot:hover video{transform:scale(1.04)}
           <path d="M91 92c-3 8-2 16 1 22M146 92c3 8 2 16-1 22" stroke="#3b2721" stroke-width="1.5" fill="none" stroke-linecap="round"/>
           <circle cx="129" cy="63" r="2.6" fill="#fff" stroke="#efd9c0" stroke-width=".8"/>
           <path d="M101 98q5.5-5 11 0M124 98q5.5-5 11 0" stroke="#5a3a33" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M101 98l-3-2M135 98l3-2" stroke="#5a3a33" stroke-width="1.6" stroke-linecap="round"/>
           <ellipse class="cheek" cx="100" cy="108" rx="5.5" ry="3.4" fill="#f29aa8"/>
           <ellipse class="cheek" cx="136" cy="108" rx="5.5" ry="3.4" fill="#f29aa8"/>
-          <path d="M112 109q6 7 12 0z" fill="#c95b6b" stroke="#8a4040" stroke-width="1.2" stroke-linejoin="round"/>
+          <path d="M114 109q4 5 8 0z" fill="#c95b6b" stroke="#8a4040" stroke-width="1.2" stroke-linejoin="round"/>
           <!-- white cat-eye sunglasses -->
           <g class="sg-b">
             <g fill="#3a2f36" stroke="#d8c6c1" stroke-width="3.6" stroke-linejoin="round">
@@ -425,32 +426,32 @@ button.slot:hover img,button.slot:hover video{transform:scale(1.04)}
             <path d="M116 93Q118 91 120 93" stroke="#fff" stroke-width="2" fill="none"/>
             <path class="glint" d="M101 98l5-5M124 98l5-5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
           </g>
-        </g>
+        </g></g>
       </g></g>
 
       <!-- ===== groom ===== -->
       <g class="in-g"><g class="bob-g">
         <!-- legs & shoes -->
-        <path d="M190 180h12l-1 46h-10zM206 180h12l-1 46h-10z" fill="#e7d8ca" stroke="#d3bfae" stroke-width="1"/>
-        <ellipse cx="195" cy="229" rx="9" ry="4" fill="#2b2220"/><ellipse cx="213" cy="229" rx="9" ry="4" fill="#2b2220"/>
+        <path d="M195.5 182h8l-.5 45h-7zM205 182h8l-.5 45h-7z" fill="#e7d8ca" stroke="#d3bfae" stroke-width="1"/>
+        <ellipse cx="198.5" cy="229.5" rx="7" ry="3.4" fill="#2b2220"/><ellipse cx="210" cy="229.5" rx="7" ry="3.4" fill="#2b2220"/>
         <!-- arms -->
-        <path d="M228 128C233 144 236 160 236 172" stroke="#eadccf" stroke-width="11" stroke-linecap="round" fill="none"/>
-        <circle cx="236" cy="177" r="5" fill="#f2cdb6"/>
-        <path d="M182 128C176 144 170 156 164 164" stroke="#eadccf" stroke-width="11" stroke-linecap="round" fill="none"/>
+        <path d="M219 128C223 144 225 158 225 170" stroke="#eadccf" stroke-width="7.5" stroke-linecap="round" fill="none"/>
+        <circle cx="225" cy="174" r="3.8" fill="#f2cdb6"/>
+        <path d="M189 128C182 144 172 156 164 164" stroke="#eadccf" stroke-width="7.5" stroke-linecap="round" fill="none"/>
         <!-- jacket -->
-        <path d="M181 121Q204 115 227 121L231 186Q204 193 177 186Z" fill="#eee2d6" stroke="#d6c2b2" stroke-width="1.2"/>
-        <path d="M195 120L204 147L213 120Z" fill="#fff"/>
-        <path d="M195 120L204 150L198 156M213 120L204 150L210 156" stroke="#d6c2b2" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
-        <path d="M202 123h4l1.5 17-3.5 6-3.5-6z" fill="#8e2235"/>
-        <path d="M201.5 123h5l-1 3h-3z" fill="#6f1a29"/>
-        <path d="M204 156V190" stroke="#d6c2b2" stroke-width="1"/>
-        <circle cx="206.5" cy="164" r="1.6" fill="#c9b19c"/><circle cx="206.5" cy="174" r="1.6" fill="#c9b19c"/>
-        <rect x="199" y="110" width="10" height="11" rx="3" fill="#f2cdb6"/>
+        <path d="M188 121Q204 116 220 121L222 185Q204 190 186 185Z" fill="#eee2d6" stroke="#d6c2b2" stroke-width="1.2"/>
+        <path d="M198 120L204 142L210 120Z" fill="#fff"/>
+        <path d="M198 120L204 145L199.5 150M210 120L204 145L208.5 150" stroke="#d6c2b2" stroke-width="1.2" fill="none" stroke-linejoin="round"/>
+        <path d="M202.6 123h2.8l1.2 14-2.6 5-2.6-5z" fill="#8e2235"/>
+        <path d="M202 123h4l-.8 2.6h-2.4z" fill="#6f1a29"/>
+        <path d="M204 150V188" stroke="#d6c2b2" stroke-width="1"/>
+        <circle cx="205.5" cy="158" r="1.3" fill="#c9b19c"/><circle cx="205.5" cy="167" r="1.3" fill="#c9b19c"/>
+        <rect x="200.5" y="110" width="7" height="11" rx="3" fill="#f2cdb6"/>
         <!-- joined hands -->
-        <circle cx="157" cy="167" r="4.6" fill="#f7d6c4"/>
-        <circle cx="162" cy="167" r="5" fill="#f2cdb6"/>
+        <circle cx="157" cy="167" r="3.6" fill="#f7d6c4"/>
+        <circle cx="161.5" cy="166.5" r="3.9" fill="#f2cdb6"/>
         <!-- head -->
-        <g class="hd-g">
+        <g class="hd-g"><g transform="translate(204 118) scale(.82) translate(-204 -118)">
           <circle cx="204" cy="82" r="33" fill="#2f211d"/>
           <circle cx="173" cy="92" r="4.8" fill="#f2cdb6"/><circle cx="235" cy="92" r="4.8" fill="#f2cdb6"/>
           <ellipse cx="204" cy="92" rx="29" ry="26.5" fill="#f8dac6"/>
@@ -460,14 +461,14 @@ button.slot:hover img,button.slot:hover video{transform:scale(1.04)}
           <path d="M187 93q5.5-5 11 0M210 93q5.5-5 11 0" stroke="#4a2f27" stroke-width="2" fill="none" stroke-linecap="round"/>
           <ellipse class="cheek" cx="185" cy="103" rx="5" ry="3.2" fill="#f29aa8"/>
           <ellipse class="cheek" cx="223" cy="103" rx="5" ry="3.2" fill="#f29aa8"/>
-          <path d="M197 103q7 8 14 0z" fill="#fff" stroke="#7d3d35" stroke-width="1.3" stroke-linejoin="round"/>
+          <path d="M199 103q5 6 10 0z" fill="#fff" stroke="#7d3d35" stroke-width="1.3" stroke-linejoin="round"/>
           <!-- black sunglasses -->
           <g class="sg-g">
             <path d="M182 86h18l-1.5 8.5a4 4 0 0 1-4 3.5h-7a4 4 0 0 1-4-3.5zM208 86h18l-1.5 8.5a4 4 0 0 1-4 3.5h-7a4 4 0 0 1-4-3.5z" fill="#1f1a1c" stroke="#111" stroke-width="1.6" stroke-linejoin="round"/>
             <path d="M200 88Q204 85.5 208 88M182 87l-6-1M226 87l6-1" stroke="#111" stroke-width="1.8" fill="none" stroke-linecap="round"/>
             <path class="glint" d="M186 95l5-6M212 95l5-6" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
           </g>
-        </g>
+        </g></g>
       </g></g>
 
       <!-- hearts from their hands; big heart on tap -->
@@ -476,7 +477,7 @@ button.slot:hover img,button.slot:hover video{transform:scale(1.04)}
         <use class="fh" href="#hrt" x="160" y="152" style="--x:10px" fill="#f6b8c4"/>
         <use class="fh" href="#hrt" x="160" y="152" style="--x:-2px" fill="#c0767c"/>
       </g>
-      <g class="big"><use href="#hrt" transform="translate(161 32) scale(3.2)" fill="#ef8a95" stroke="#fff" stroke-width=".5"/></g>
+      <g class="big"><use href="#hrt" transform="translate(161 44) scale(2.8)" fill="#ef8a95" stroke="#fff" stroke-width=".5"/></g>
     </svg>
     </div>
     <div class="cap">Plookrak ♡ Beer</div>
