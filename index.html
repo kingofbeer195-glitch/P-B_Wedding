@@ -217,6 +217,29 @@ button.slot:hover img,button.slot:hover video{transform:scale(1.04)}
 .to-env:hover,.to-env:focus-visible{background:var(--rose);color:#fff}
 .to-env svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5}
 #env.open .hint{opacity:0}
+/* cartoon couple: illustrated portrait with animated overlays */
+.duo{padding:30px 20px 34px}
+.scene{position:relative;width:min(340px,100%);margin:8px auto 0;cursor:pointer;-webkit-tap-highlight-color:transparent;border-radius:999px 999px 18px 18px/40% 40% 18px 18px;padding:6px;background:linear-gradient(160deg,#f6d0d4,#fbe7dc 50%,#f3c9cf);box-shadow:0 22px 40px -26px rgba(140,60,70,.55)}
+.scene .pic{position:relative;overflow:hidden;border-radius:999px 999px 14px 14px/40% 40% 14px 14px;aspect-ratio:760/1180;background:#cfe6f7}
+.scene img{position:absolute;inset:auto 0 0 0;width:100%;height:auto;display:block;transform-origin:50% 60%;animation:breathe 9s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+.scene>span{position:absolute;pointer-events:none}
+.sheen{inset:6px;border-radius:999px 999px 14px 14px/40% 40% 14px 14px;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.45) 50%,transparent 60%) 0 0/250% 100% no-repeat;animation:sheen 6s ease-in-out 1s infinite}
+@keyframes sheen{0%{background-position:150% 0}35%,100%{background-position:-60% 0}}
+.gl{width:16px;height:16px;margin:-8px 0 0 -8px;background:radial-gradient(circle,#fff 0 18%,transparent 20%),linear-gradient(#fff,#fff) 50%/2px 100% no-repeat,linear-gradient(#fff,#fff) 50%/100% 2px no-repeat;opacity:0;animation:glint 3.2s ease-in-out infinite}
+@keyframes glint{0%,62%,100%{opacity:0;transform:scale(.3) rotate(0)}75%{opacity:1;transform:scale(1) rotate(45deg)}88%{opacity:0;transform:scale(.4) rotate(90deg)}}
+.sp{width:13px;height:13px;margin:-6px 0 0 -6px;background:#fff;clip-path:path('M6.5 0C7.2 4.6 8.4 5.8 13 6.5 8.4 7.2 7.2 8.4 6.5 13 5.8 8.4 4.6 7.2 0 6.5 4.6 5.8 5.8 4.6 6.5 0Z');filter:drop-shadow(0 0 3px #fff);animation:twinkle 2.6s ease-in-out infinite}
+.fh{width:18px;height:18px;margin:-9px 0 0 -9px;opacity:0;background:#f48ba0;clip-path:path('M9 16.5C3 12 1 9 1 6.2 1 3.8 2.9 2 5.2 2 6.7 2 8.1 2.8 9 4 9.9 2.8 11.3 2 12.8 2 15.1 2 17 3.8 17 6.2 17 9 15 12 9 16.5Z');animation:fh 3.6s ease-in infinite}
+@keyframes fh{0%{opacity:0;transform:translate(0,0) scale(.4)}15%{opacity:1;transform:translate(0,-10px) scale(1)}100%{opacity:0;transform:translate(var(--x,0),-110px) scale(.7)}}
+.big{left:50%;top:7%;width:72px;height:72px;margin:-36px 0 0 -36px;transform-origin:50% 100%;opacity:0;background:#ef8a95;clip-path:path('M36 66C12 48 4 36 4 24.8 4 15.2 11.6 8 20.8 8 26.8 8 32.4 11.2 36 16 39.6 11.2 45.2 8 51.2 8 60.4 8 68 15.2 68 24.8 68 36 60 48 36 66Z');filter:drop-shadow(0 0 0 #fff)}
+.scene.kiss .big{animation:bigheart 2s ease both}
+.scene.kiss img{animation:hug 2s ease both}
+@keyframes hug{0%,100%{transform:scale(1)}30%,70%{transform:scale(1.06)}}
+@keyframes bigheart{0%{opacity:0;transform:scale(.2)}25%{opacity:1;transform:scale(1.15)}35%,75%{opacity:1;transform:scale(1)}100%{opacity:0;transform:translateY(-24px) scale(.9)}}
+.duo .cap{font-family:var(--f-script);color:var(--rose);font-size:34px;line-height:1.1;margin-top:10px}
+.duo .tap{font-size:12px;color:var(--ink-soft);margin-top:2px}
+.rv.in .scene{animation:pop .9s cubic-bezier(.3,1.4,.5,1) .15s both}
+@media (prefers-reduced-motion:reduce){.duo *{animation:none!important}}
 @media (prefers-reduced-motion:reduce){.reveal{animation:none}#petals{display:none}.seal,.hint::before,.rv.in,.rv.in *,.play *,.ico *,.spark,.rings *,.logo,.beat *{animation:none!important}}
 @media (max-width:420px){section{padding:34px 20px}.parents{font-size:14px;gap:6px}.dateblock .day{font-size:60px}.dateblock .side{font-size:16px}}
 </style>
@@ -286,6 +309,28 @@ button.slot:hover img,button.slot:hover video{transform:scale(1.04)}
     <p class="lead">Request the pleasure of your company<br>at their wedding celebration</p>
     <div class="date-en">SUNDAY · <b>17</b> · 01 · 2027</div>
   </header>
+
+  <section class="duo" aria-labelledby="h-duo">
+    <div class="eyebrow" id="h-duo">Bride &amp; Groom</div>
+    <div class="scene" id="scene">
+      <div class="pic"><img src="couple-cartoon.jpg" alt="การ์ตูนเจ้าสาวและเจ้าบ่าวใส่แว่นกันแดด ยืนพิงราวริมทะเล" width="760" height="1350" loading="lazy"></div>
+      <span class="sheen" aria-hidden="true"></span>
+      <span class="gl" style="left:25%;top:28.6%" aria-hidden="true"></span>
+      <span class="gl" style="left:62.6%;top:23.4%;animation-delay:1.6s" aria-hidden="true"></span>
+      <span class="sp" style="left:12%;top:58%" aria-hidden="true"></span>
+      <span class="sp" style="left:84%;top:52%;animation-delay:.8s" aria-hidden="true"></span>
+      <span class="sp" style="left:70%;top:63%;animation-delay:1.7s;width:10px;height:10px" aria-hidden="true"></span>
+      <span class="sp" style="left:30%;top:24%;animation-delay:2.4s;width:9px;height:9px" aria-hidden="true"></span>
+      <span class="fh" style="left:46%;top:44%" aria-hidden="true"></span>
+      <span class="fh" style="left:44%;top:46%;--x:-22px;animation-delay:1.2s" aria-hidden="true"></span>
+      <span class="fh" style="left:48%;top:45%;--x:18px;animation-delay:2.4s" aria-hidden="true"></span>
+      <span class="big" aria-hidden="true"></span>
+    </div>
+    <div class="cap">Plookrak ♡ Beer</div>
+    <div class="tap">แตะที่เราสองคนสิ ♡</div>
+  </section>
+
+  <div class="rule"></div>
 
   <section aria-labelledby="h-photo">
     <div class="eyebrow">Pre-wedding</div>
@@ -540,6 +585,17 @@ document.querySelector('.sheet').addEventListener('click', e => {
     setTimeout(() => h.remove(), 1700 + k * 90);
   }
 });
+
+/* cartoon couple: tap for a kiss */
+(() => {
+  const sc = document.getElementById('scene'); if (!sc) return;
+  let t;
+  sc.addEventListener('click', () => {
+    if (REDUCE) return;
+    sc.classList.remove('kiss'); void sc.offsetWidth; sc.classList.add('kiss');
+    clearTimeout(t); t = setTimeout(() => sc.classList.remove('kiss'), 2100);
+  });
+})();
 
 /* countdown to 17 Jan 2027 07:00 (Bangkok) */
 const target = Date.parse('2027-01-17T07:00:00+07:00');
