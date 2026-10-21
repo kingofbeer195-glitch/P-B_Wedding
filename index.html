@@ -40,7 +40,7 @@ h2{font-family:var(--f-thai-accent);font-weight:400;color:var(--rose-deep);font-
 .hero-bg .veil{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,253,252,0) 0%,rgba(255,253,252,0) 84%,rgba(255,253,252,.6) 94%,var(--sheet) 100%)}
 .hero-bg>span{position:absolute;pointer-events:none}
 .hero-top,.hero-bot{position:relative;z-index:1}
-.hero .names{font-size:clamp(44px,13vw,72px);line-height:1.05;margin:4px 0 0;filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 6px rgba(255,255,255,.95)) drop-shadow(0 0 14px rgba(255,253,252,.9))}
+.hero .names{font-size:clamp(40px,11.5vw,68px);line-height:1.05;margin:4px 0 0;filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 6px rgba(255,255,255,.95)) drop-shadow(0 0 14px rgba(255,253,252,.9))}
 .shine-text{background:linear-gradient(110deg,var(--rose) 42%,#fbe0e3 50%,var(--rose) 58%) 0 0/300% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--rose);animation:shine 5s ease-in-out 2s infinite}
 .shine-text .amp{background:inherit;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;background-size:300% 100%;animation:inherit}
 .hero .names .amp{display:inline;font-size:.6em;margin:0 .12em}
@@ -203,7 +203,7 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
 .btn.solid{background:var(--rose);color:#fff;grid-column:1/-1;flex-direction:row;justify-content:center;gap:10px}
 .btn.solid:hover{background:var(--rose-deep)}
 
-.foot{padding:28px 28px 36px;font-size:14px;color:var(--ink-soft)}
+.foot{padding:28px 28px clamp(150px,40vw,210px);font-size:14px;color:var(--ink-soft)}
 .foot .sig{font-family:var(--f-script);font-size:40px;color:var(--rose);line-height:1.2;margin-top:6px}
 .bouquet{width:min(320px,70%);margin:-10px -6% -4px auto}
 .corner{position:absolute;left:-18px;bottom:-40px;width:150px;opacity:.9}
@@ -347,6 +347,18 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.vine .ring,.vine .calyx{transform:none!important;transition:none!important}.vine *{animation:none!important}}
 @media (prefers-reduced-motion:reduce){.vine .bit{transition:none}.vine .rose.on{animation:none}}
 @media (max-width:600px){.sheet-wrap{max-width:calc(100% - 28px);--vw:36px}}
+
+/* corner rose garland (top-left) and rose basket (bottom-right) */
+.vine.deco{height:auto;z-index:7;overflow:visible;transform:none}
+.vine.corner{left:-18px;top:-16px;width:clamp(200px,58vw,290px)}
+.vine.basket{right:-14px;top:auto;bottom:-10px;width:clamp(160px,44vw,230px)}
+.vine.deco .stem{transition:stroke-dashoffset 2.2s ease}
+.vine.deco.on .stem{stroke-dashoffset:0}
+.vine.deco .swirl{fill:none;stroke:#c4b07f;stroke-width:1;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.6s ease .6s}
+.vine.deco.on .swirl{stroke-dashoffset:0}
+.vine.basket .bk{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(.2);opacity:0;transition:transform .8s cubic-bezier(.3,1.4,.5,1),opacity .4s}
+.vine.basket.on .bk{transform:none;opacity:1}
+@media (prefers-reduced-motion:reduce){.vine.deco .swirl,.vine.deco .stem{stroke-dashoffset:0!important;transition:none}.vine.basket .bk{transform:none;opacity:1}}
 </style>
 
 </head>
@@ -408,6 +420,8 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
 <div class="sheet-wrap">
   <svg class="vine l" id="vineL" aria-hidden="true"></svg>
   <svg class="vine r" id="vineR" aria-hidden="true"></svg>
+<svg class="vine deco corner" id="decoCorner" viewBox="0 0 230 230" aria-hidden="true"></svg>
+<svg class="vine deco basket" id="decoBasket" viewBox="0 0 210 230" aria-hidden="true"></svg>
 <main class="sheet">
 
   <header class="hero reveal" id="scene">
@@ -922,6 +936,7 @@ tick();
   }
   const bud = (x, y, pal, ang) => `<g transform="rotate(${ang.toFixed(0)} ${x.toFixed(1)} ${y.toFixed(1)})"><path d="M${x} ${y}c-3.2-4-3.2-9.5 0-12.5 3.2 3 3.2 8.5 0 12.5z" fill="${pal[1]}"/><path d="M${x} ${y}c-3.5-1-5.5-4-4.5-7.5M${x} ${y}c3.5-1 5.5-4 4.5-7.5" stroke="#8fae8b" stroke-width="1.2" fill="none" stroke-linecap="round"/></g>`;
 
+  window.PBR = {rose, leaf, bud};
   function build(svg, H, side){
     seed = (SEED + side * 7919) % 2147483646 + 1;
     const W = innerWidth <= 600 ? 36 : 58;
@@ -992,6 +1007,66 @@ tick();
   let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => rebuild(true), 150); });
   if ('ResizeObserver' in window) new ResizeObserver(() => rebuild(false)).observe(sheet);
   rebuild(true);
+})();
+
+/* ===== corner rose garland + rose basket, blooming with the same rose animation ===== */
+(() => {
+  const C = document.getElementById('decoCorner'), B = document.getElementById('decoBasket');
+  if (!C || !window.PBR) return;
+  const {rose, leaf, bud} = window.PBR;
+  const P1 = [['#f8d3d5','#eeaab1','#d98590'],['#f6c8cc','#e99ea7','#cf7380'],['#fadcdc','#f1b5ba','#dc8d96']];
+  const P2 = [['#f9cfe0','#f0a6c3','#d9789e'],['#f7c2d7','#ec95b6','#cf6a91'],['#fbd9e7','#f3b4cc','#df88a9']];
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+  const R = (x, y, r, pal, k) => `<g class="rose" data-k="${k}" style="--d:${(-Math.random()*5).toFixed(1)}s"><g class="sway">${rose(x, y, r, pal)}</g></g>`;
+  const LF = (x, y, a, sz) => leaf(x, y, a, sz).replace(/#a9c7a0/g, '#8fae7a').replace(/#86a67f/g, '#6f8f5e');
+  const spiral = (x, y, r, dir) => `M${x} ${y}c${dir*r} ${-r*.2} ${dir*r*1.2} ${r*.9} ${dir*r*.4} ${r*1.1}c${-dir*r*.6} ${r*.15} ${-dir*r*.8} ${-r*.45} ${-dir*r*.35} ${-r*.6}`;
+
+  /* --- top-left garland --- */
+  let c = '';
+  c += `<path class="stem" pathLength="1" stroke-width="2" d="M14 20 C60 10 120 14 170 22 S215 30 226 26"/>`;
+  c += `<path class="stem" pathLength="1" stroke-width="1.4" d="M60 22 C100 4 140 2 186 8"/>`;
+  c += `<path class="stem" pathLength="1" stroke-width="2" d="M20 14 C12 60 16 120 22 170 S26 215 22 228"/>`;
+  c += `<path class="stem" pathLength="1" stroke-width="1.4" d="M22 70 C4 110 6 150 12 196"/>`;
+  [[150,14,9,1],[190,6,7,-1],[205,30,8,1],[118,30,7,-1],[10,150,8,1],[30,190,9,-1],[4,112,7,1],[34,130,6,-1]].forEach(([x,y,r,d]) => c += `<path class="swirl" pathLength="1" d="${spiral(x,y,r,d)}"/>`);
+  c += `<path class="swirl" pathLength="1" d="M70 20c20-14 46-16 60-4M24 60c-12 20-12 44-2 58"/>`;
+  [[96,12,-20,13],[132,8,200,12],[160,24,-30,11],[200,18,190,10],[110,26,30,10],[16,96,110,13],[10,130,250,12],[24,160,60,11],[16,206,250,11],[28,112,80,10],[66,8,-15,12],[48,54,140,12],[78,56,20,12]].forEach(([x,y,a,sz]) => c += `<g class="bit" data-k="1">${LF(x,y,a,sz)}</g>`);
+  const pc = pick(P1);
+  [[136,18,pc,150],[176,14,pick(P1),-30],[214,26,pick(P1),170],[18,140,pick(P1),80],[14,182,pc,250],[24,220,pick(P1),100]].forEach(([x,y,p,a]) => c += `<g class="bit" data-k="2">${bud(x,y,p,a)}</g>`);
+  c += R(112,24,10,pick(P1),3) + R(22,116,10,pick(P1),3);
+  c += R(82,34,18,pick(P1),2) + R(34,84,18,pick(P1),2) + R(66,68,14,pick(P1),2);
+  c += R(42,40,26,pc,1);
+  C.innerHTML = c;
+
+  /* --- basket of roses --- */
+  let b = '<g class="bk">';
+  b += `<ellipse cx="105" cy="224" rx="70" ry="5" fill="rgba(110,70,40,.15)"/>`;
+  b += `<path d="M40 138h130l-12 82H52z" fill="#d4b07a"/>`;
+  for (let y = 146; y < 218; y += 9) b += `<path d="M${40 + (y-138)*.146} ${y}h${130 - (y-138)*.29}" stroke="#b48a52" stroke-width="3.2" stroke-dasharray="7 3" stroke-dashoffset="${(y/9)%2 ? 0 : 5}"/>`;
+  for (let x = 50; x < 165; x += 10) b += `<path d="M${x} 140 L${52 + (x-50)*.92} 220" stroke="#e2c592" stroke-width="1" opacity=".7"/>`;
+  b += `<rect x="34" y="132" width="142" height="12" rx="6" fill="#c79a5f"/><path d="M38 138h134" stroke="#e7cc98" stroke-width="2" stroke-dasharray="6 4"/>`;
+  b += '</g>';
+  [[30,120,200,16],[176,118,-20,16],[46,96,215,15],[166,92,-35,15],[70,74,240,14],[140,70,-60,14],[105,60,-90,13],[24,140,190,13],[186,138,-10,13]].forEach(([x,y,a,sz]) => b += `<g class="bit" data-k="1">${LF(x,y,a,sz)}</g>`);
+  const roses = [[105,82,19],[78,96,18],[132,96,18],[54,114,17],[156,114,17],[90,118,17],[120,120,17],[68,78,14],[142,78,14],[105,104,16],[40,128,14],[170,128,14],[106,124,15],[52,92,12],[158,92,12]];
+  roses.sort((p, q) => Math.hypot(q[0]-105, q[1]-100) - Math.hypot(p[0]-105, p[1]-100));
+  roses.forEach(([x,y,r], i) => b += R(x, y, r, pick(P2), 2 + Math.floor((roses.length - i) / 5)));
+  B.innerHTML = b;
+
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function bloom(svg){
+    svg.classList.add('on');
+    svg.querySelectorAll('[data-k]').forEach(el => {
+      const k = +el.dataset.k;
+      setTimeout(() => el.classList.add('on'), reduce ? 0 : 500 + k * 450 + Math.random() * 300);
+    });
+  }
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ bloom(e.target); io.unobserve(e.target); } }), {threshold:.3});
+    const start = () => [C, B].forEach(el => io.observe(el));
+    const env = document.getElementById('env');
+    /* wait until the envelope is opened so the corner blooms in view */
+    if (env && !env.classList.contains('gone')) new MutationObserver((m, o) => { if (env.classList.contains('gone')){ o.disconnect(); start(); } }).observe(env, {attributes:true, attributeFilter:['class']});
+    else start();
+  } else { bloom(C); bloom(B); }
 })();
 </script>
 
