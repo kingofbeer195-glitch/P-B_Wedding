@@ -184,6 +184,12 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
 .lookbook .lk-dots{display:flex;justify-content:center;gap:6px;margin-top:8px}
 .lookbook .lk-dots i{width:6px;height:6px;border-radius:50%;background:var(--line)}
 .lookbook .lk-dots i.on{background:var(--rose);width:16px;border-radius:3px}
+.lookbook{animation:lkin .35s ease both}
+.lookbook.closing{animation:lkout .26s ease both}
+@keyframes lkin{from{opacity:0;transform:translateY(-6px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes lkout{to{opacity:0;transform:translateY(-6px) scale(.98)}}
+.lookbook .lk-x{position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--sheet);color:var(--rose-deep);font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:background .2s,color .2s,transform .2s;z-index:2}
+.lookbook .lk-x:hover,.lookbook .lk-x:focus-visible{background:var(--rose);color:#fff;transform:rotate(90deg)}
 .lookbook .lk-name{font-family:var(--f-thai-accent);color:var(--rose-deep);font-size:18px;margin-bottom:4px}
 .lookbook .again{margin-top:10px;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;border:1px solid var(--rose);background:var(--sheet);color:var(--rose-deep);font:inherit;font-size:13px;cursor:pointer}
 .lookbook .again:hover,.lookbook .again:focus-visible{background:var(--rose);color:#fff}
@@ -193,15 +199,43 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.lookbook *{animation:none!important}}
 
 /* places */
-.places{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
-.btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:16px 10px;border:1px solid var(--rose);color:var(--rose-deep);text-decoration:none;background:var(--sheet);transition:background .2s,color .2s;font-size:15px;line-height:1.4;cursor:pointer;font-family:inherit}
-.btn small{color:var(--ink-soft);font-size:12px}
-.btn svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.4}
-.btn:hover,.btn:focus-visible{background:var(--rose);color:#fff}
-.btn:hover small,.btn:focus-visible small{color:#fff}
-.btn:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
-.btn.solid{background:var(--rose);color:#fff;grid-column:1/-1;flex-direction:row;justify-content:center;gap:10px}
-.btn.solid:hover{background:var(--rose-deep)}
+.places{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+.place{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:22px 10px 16px;border-radius:90px 90px 18px 18px;background:linear-gradient(180deg,#fdeef0 0%,var(--sheet) 70%);color:var(--ink);text-decoration:none;box-shadow:0 1px 0 var(--line),0 14px 26px -18px rgba(150,70,80,.55);transition:transform .3s cubic-bezier(.3,1.5,.5,1),box-shadow .3s;min-width:0}
+.place::before{content:"";position:absolute;inset:6px;border-radius:inherit;border:1px dashed rgba(192,118,124,.45);pointer-events:none}
+.place:hover,.place:focus-visible{transform:translateY(-4px);box-shadow:0 1px 0 var(--line),0 20px 30px -16px rgba(150,70,80,.6)}
+.place:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
+.pl-ico{width:58px;height:58px;border-radius:50%;background:var(--sheet);display:grid;place-items:center;box-shadow:0 6px 14px -8px rgba(150,70,80,.6),inset 0 0 0 1px #f3d6da;margin-bottom:6px}
+.pl-ico svg{width:36px;height:36px;overflow:visible}
+.pl-ico .pin{fill:#f6c2cb;stroke:var(--rose-deep);stroke-width:1.3;transform-origin:20px 36px;transform-box:view-box}
+.pl-ico .hrt{fill:#fff}
+.place:hover .pin,.place:focus-visible .pin{animation:pinhop .7s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pinhop{30%{transform:translateY(-5px) scaleY(1.05)}60%{transform:translateY(0) scaleY(.94)}}
+.pl-ico .car{fill:#f6c2cb;stroke:var(--rose-deep);stroke-width:1.3;stroke-linejoin:round}
+.pl-ico .win{fill:#fff;stroke:var(--rose-deep);stroke-width:1}
+.pl-ico .whl{fill:#fff;stroke:var(--rose-deep);stroke-width:1.4}
+.pl-ico .p{fill:none;stroke:#8fae8b;stroke-width:1.8;stroke-linecap:round}
+.place:hover .pl-ico svg{animation:carroll .8s ease}
+@keyframes carroll{40%{transform:translateX(3px)}70%{transform:translateX(-1px)}}
+.pl-eb{font-family:var(--f-display);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft)}
+.place b{font-family:var(--f-thai-accent);font-weight:400;font-size:19px;color:var(--rose-deep);line-height:1.3}
+.pl-go{display:inline-flex;align-items:center;gap:4px;margin-top:6px;padding:4px 12px;border-radius:999px;background:var(--rose);color:#fff;font-size:12px;transition:gap .2s}
+.pl-go svg{width:12px;height:12px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round}
+.place:hover .pl-go{gap:8px}
+.save-date{position:relative;overflow:hidden;grid-column:1/-1;display:flex;align-items:center;gap:14px;padding:12px 14px 12px 12px;border-radius:18px;background:linear-gradient(120deg,#c87b84,#e39aa3 55%,#f0b9a8);color:#fff;text-decoration:none;text-align:left;box-shadow:0 14px 26px -16px rgba(150,70,80,.7);transition:transform .3s cubic-bezier(.3,1.5,.5,1)}
+.save-date::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.35) 50%,transparent 60%) 0 0/250% 100% no-repeat;animation:sheen 5s ease-in-out 1.5s infinite;pointer-events:none}
+.save-date:hover,.save-date:focus-visible{transform:translateY(-3px)}
+.save-date:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
+.sd-tile{flex:none;width:58px;border-radius:10px;background:#fff;color:var(--ink);text-align:center;overflow:hidden;box-shadow:0 4px 10px -4px rgba(90,30,40,.4);line-height:1}
+.sd-tile i{display:block;font-style:normal;font-family:var(--f-display);font-size:11px;letter-spacing:.2em;padding:4px 0 3px;background:var(--rose-deep);color:#fff}
+.sd-tile b{display:block;font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:28px;padding:4px 0 0;color:var(--rose-deep)}
+.sd-tile em{display:block;font-style:normal;font-size:10px;letter-spacing:.12em;color:var(--ink-soft);padding:1px 0 5px}
+.sd-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.sd-txt b{font-family:var(--f-thai-accent);font-weight:400;font-size:20px;line-height:1.2}
+.sd-txt small{font-size:12.5px;opacity:.92}
+.sd-plus{flex:none;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.22);display:grid;place-items:center;transition:transform .3s}
+.sd-plus svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round}
+.save-date:hover .sd-plus{transform:rotate(90deg)}
+@media (max-width:400px){.places{gap:10px}.place b{font-size:17px}.pl-ico{width:50px;height:50px}.pl-ico svg{width:30px;height:30px}}
 
 .foot{padding:28px 28px clamp(150px,40vw,210px);font-size:14px;color:var(--ink-soft)}
 .foot .sig{font-family:var(--f-script);font-size:40px;color:var(--rose);line-height:1.2;margin-top:6px}
@@ -582,7 +616,7 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
       <button class="sw" type="button" data-c="#ef8a95" data-n="ชมพูกุหลาบ" aria-pressed="false"><i style="background:var(--coral)"></i>ชมพูกุหลาบ</button>
       <button class="sw" type="button" data-c="#fbdcc0" data-n="พีช" aria-pressed="false"><i style="background:var(--peach)"></i>พีช</button>
     </div>
-    <p class="sw-hint" id="swHint">แตะที่สีเพื่อดูไอเดียการแต่งกาย ♡</p>
+    <p class="sw-hint" id="swHint">แตะที่สีเพื่อดูไอเดียการแต่งกาย ♡ แตะซ้ำเพื่อปิด</p>
     <div class="lookbook" id="lookbook" hidden aria-live="polite"></div>
   </section>
 
@@ -592,16 +626,24 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
     <div class="eyebrow">Location</div>
     <h2 id="h-loc">การเดินทาง</h2>
     <div class="places">
-      <a class="btn" href="https://maps.app.goo.gl/EVcHE8BgnWFP1dCw8" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-        สถานที่จัดงาน<small>เปิด Google Maps</small></a>
-      <a class="btn" href="https://maps.app.goo.gl/TGSBbuWbJyJSLqjL9" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M10 17V7h3.2a3 3 0 0 1 0 6H10"/></svg>
-        สถานที่จอดรถ<small>เปิด Google Maps</small></a>
-      <a class="btn solid" target="_blank" rel="noopener"
+      <a class="place" href="https://maps.app.goo.gl/EVcHE8BgnWFP1dCw8" target="_blank" rel="noopener">
+        <span class="pl-ico"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="pin" d="M20 36s-11-9.6-11-18a11 11 0 0 1 22 0c0 8.4-11 18-11 18z"/><path class="hrt" d="M20 23.5c-4-2.9-5.6-4.9-5.6-7a3 3 0 0 1 5.6-1.4 3 3 0 0 1 5.6 1.4c0 2.1-1.6 4.1-5.6 7z"/></svg></span>
+        <span class="pl-eb">Ceremony</span>
+        <b>สถานที่จัดงาน</b>
+        <span class="pl-go">เปิดแผนที่<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3l5 5-5 5"/></svg></span>
+      </a>
+      <a class="place" href="https://maps.app.goo.gl/TGSBbuWbJyJSLqjL9" target="_blank" rel="noopener">
+        <span class="pl-ico"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="car" d="M8 25v-4.5l3-6.5c.6-1.3 1.6-2 3-2h12c1.4 0 2.4.7 3 2l3 6.5V25a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2z"/><path class="win" d="M12.5 20l2.2-5h10.6l2.2 5z"/><circle class="whl" cx="13.5" cy="27" r="3"/><circle class="whl" cx="26.5" cy="27" r="3"/><path class="p" d="M30 6v8M30 6h2.6a2.4 2.4 0 0 1 0 4.8H30"/></svg></span>
+        <span class="pl-eb">Parking</span>
+        <b>สถานที่จอดรถ</b>
+        <span class="pl-go">เปิดแผนที่<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3l5 5-5 5"/></svg></span>
+      </a>
+      <a class="save-date" target="_blank" rel="noopener"
          href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B9%81%E0%B8%95%E0%B9%88%E0%B8%87%20Plookrak%20%26%20Beer&amp;dates=20270117T000000Z/20270117T060000Z&amp;ctz=Asia/Bangkok&amp;details=%E0%B8%9E%E0%B8%B4%E0%B8%98%E0%B8%B5%E0%B8%AA%E0%B8%87%E0%B8%86%E0%B9%8C%2007.00%20%E0%B8%99.%0A%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88%3A%20https%3A%2F%2Fmaps.app.goo.gl%2FEVcHE8BgnWFP1dCw8&amp;location=https%3A%2F%2Fmaps.app.goo.gl%2FEVcHE8BgnWFP1dCw8">
-        <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4M12 13v4M10 15h4"/></svg>
-        บันทึกลงปฏิทิน</a>
+        <span class="sd-tile" aria-hidden="true"><i>JAN</i><b>17</b><em>2027</em></span>
+        <span class="sd-txt"><b>บันทึกลงปฏิทิน</b><small>อาทิตย์ 17 ม.ค. 2570 · 07.00 น.</small></span>
+        <span class="sd-plus" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </a>
     </div>
   </section>
 
@@ -877,15 +919,13 @@ tick();
   const LOOKS = {
     'ชมพูอ่อน': [
       {src:'looks/pink-1.jpg', her:'เดรสยาวชีฟองสายเดี่ยว', him:'สูทสองชิ้น + เนคไท'},
-      {src:'looks/pink-2.jpg', her:'ชุดไทยสไบ + ผ้าซิ่น', him:'ชุดราชปะแตน'},
+      {src:'looks/pink-2.jpg', her:'สลิปเดรสซาติน + เบลเซอร์คลุมไหล่', him:'เบลเซอร์ทรงหลวม + สนีกเกอร์ขาว'},
       {src:'looks/pink-3.jpg', her:'เดรสแขนตุ๊กตา กระโปรงบาน', him:'เสื้อกั๊ก + โบว์ไท'}],
     'ชมพูกุหลาบ': [
       {src:'looks/rose-1.jpg', her:'เดรสเปิดไหล่ระบาย', him:'สูทสลิม + ดอกไม้ติดอก'},
-      {src:'looks/rose-2.jpg', her:'ชุดไทยสไบปักทอง', him:'ชุดราชปะแตน'},
       {src:'looks/rose-3.jpg', her:'จั๊มสูทขากว้าง', him:'เชิ้ตลินินพับแขน + ชิโน่'}],
     'พีช': [
       {src:'looks/peach-1.jpg', her:'ชุดราตรีผ้าทูลล์ปักดอกไม้', him:'เสื้อกั๊ก + โบว์ไท'},
-      {src:'looks/peach-2.jpg', her:'ชุดไทยสไบ + เข็มขัดทอง', him:'ชุดราชปะแตน'},
       {src:'looks/peach-3.jpg', her:'เบลาส์แขนพอง + กระโปรงพลีท', him:'สูทลินินลำลอง'}]
   };
   /* warm the cache so the first tap shows instantly */
@@ -900,15 +940,24 @@ tick();
     let k; do { k = Math.floor(Math.random() * list.length); } while (list.length > 1 && k === last[name]);
     last[name] = k; const L = list[k];
     box.style.setProperty('--lk', c); box.style.setProperty('--lk-l', mix(c, '#ffffff', .7));
-    box.innerHTML = `<div class="lk-name">โทน${name}</div>
+    box.innerHTML = `<button class="lk-x" type="button" aria-label="ปิดตัวอย่างการแต่งกาย">×</button><div class="lk-name">โทน${name}</div>
       <div class="lk-pic"><img class="who pop" src="${L.src}" width="598" height="800" alt="ภาพการ์ตูนคู่ชายหญิงแต่งกายโทน${name}: ผู้หญิง${L.her} ผู้ชาย${L.him}"></div>
       <div class="lk-caps"><span><b>Her</b>${L.her}</span><span class="lk-h" aria-hidden="true">♡</span><span><b>Him</b>${L.him}</span></div>
       <div class="lk-dots" aria-hidden="true">${list.map((_, i) => `<i class="${i === k ? 'on' : ''}"></i>`).join('')}</div>
       <button class="again" type="button">${DICE}สุ่มแบบใหม่</button>`;
     box.hidden = false;
     box.querySelector('.again').addEventListener('click', () => show(btn));
+    box.querySelector('.lk-x').addEventListener('click', close);
+  }
+  function close(){
+    box.classList.add('closing');
+    setTimeout(() => { box.hidden = true; box.classList.remove('closing'); box.innerHTML = ''; }, 260);
+    document.querySelectorAll('.sw').forEach(b => b.setAttribute('aria-pressed', 'false'));
+    document.getElementById('swHint').hidden = false;
   }
   document.querySelectorAll('.sw').forEach(btn => btn.addEventListener('click', () => {
+    /* tapping the colour that is already open closes the preview */
+    if (btn.getAttribute('aria-pressed') === 'true' && !box.hidden){ close(); return; }
     document.querySelectorAll('.sw').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
     document.getElementById('swHint').hidden = true;
     show(btn);
