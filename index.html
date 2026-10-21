@@ -323,16 +323,28 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
 @media (max-width:420px){section{padding:34px 20px}.parents{font-size:14px;gap:6px}.dateblock .day{font-size:60px}.dateblock .side{font-size:16px}}
 
 /* climbing rose vines along both edges of the card; they grow as you scroll */
-.sheet-wrap{position:relative;max-width:560px;margin:0 auto;--vw:46px}
+.sheet-wrap{position:relative;max-width:560px;margin:0 auto;--vw:58px}
 .sheet-wrap>.sheet{z-index:1}
 .vine{position:absolute;top:0;width:var(--vw);height:100%;z-index:0;pointer-events:none;overflow:visible}
-.vine.l{left:calc(var(--vw) * -1 + 14px)}.vine.r{right:calc(var(--vw) * -1 + 14px);transform:scaleX(-1)}
-.vine .stem{fill:none;stroke:#8fae8b;stroke-width:1.6;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:var(--grow,1)}
+.vine.l{left:calc(var(--vw) * -1 + 8px)}.vine.r{right:calc(var(--vw) * -1 + 8px);transform:scaleX(-1)}
+.vine .stem{fill:none;stroke:#8fae8b;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
 .vine .tendril{fill:none;stroke:#a9c2a2;stroke-width:1;stroke-linecap:round}
 .vine .bit{transform-box:fill-box;transform-origin:var(--o,50% 50%);transform:scale(0);opacity:0;transition:transform .7s cubic-bezier(.3,1.5,.5,1),opacity .5s}
 .vine .bit.on{transform:scale(1);opacity:1}
-.vine .rose.on{animation:rosebob 5s ease-in-out infinite;animation-delay:var(--d,0s)}
-@keyframes rosebob{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+/* roses unfurl ring by ring when they come into view, then keep breathing */
+.vine .rose{opacity:0;transition:opacity .4s}
+.vine .rose.on{opacity:1}
+.vine .rose .sway{transform-box:fill-box;transform-origin:50% 100%}
+.vine .rose.on .sway{animation:rosebob 5s ease-in-out infinite;animation-delay:var(--d,0s)}
+.vine .ring{transform-box:fill-box;transform-origin:50% 50%;transform:scale(.15) rotate(-70deg);transition:transform 1.1s cubic-bezier(.25,1.3,.45,1)}
+.vine .rose.on .ring{transform:scale(1) rotate(0)}
+.vine .rose.on .r3{transition-delay:.05s}.vine .rose.on .r2{transition-delay:.35s}.vine .rose.on .r1{transition-delay:.65s}.vine .rose.on .r0{transition-delay:.9s}
+.vine .rose.on .r0,.vine .rose.on .r1{animation:breathe2 4.5s ease-in-out 2s infinite}
+@keyframes breathe2{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.07) rotate(4deg)}}
+.vine .calyx{transform-box:fill-box;transform-origin:50% 0;transform:scale(0);transition:transform .6s ease .1s}
+.vine .rose.on .calyx{transform:scale(1)}
+@keyframes rosebob{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+@media (prefers-reduced-motion:reduce){.vine .ring,.vine .calyx{transform:none!important;transition:none!important}.vine *{animation:none!important}}
 @media (prefers-reduced-motion:reduce){.vine .bit{transition:none}.vine .rose.on{animation:none}}
 @media (max-width:600px){.sheet-wrap{max-width:calc(100% - 28px);--vw:36px}}
 </style>
@@ -889,67 +901,97 @@ tick();
   }));
 })();
 
-/* ===== climbing rose vines ===== */
+/* ===== climbing rose vines: broken sprigs, mixed rose sizes, layout randomised on each visit ===== */
 (() => {
   const sheet = document.querySelector('.sheet'), L = document.getElementById('vineL'), R = document.getElementById('vineR');
   if (!sheet || !L) return;
-  const NS = 'http://www.w3.org/2000/svg';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const PINKS = [['#f6c2cb','#ee9aa6','#d9707f'],['#fbd9c4','#f3b394','#de8c6c'],['#f8cfd6','#f2a9b4','#e07f8e'],['#f3b8c2','#e88593','#c95b6c']];
-  const rose = (x, y, r, pal) => {
-    const [a, b, c] = pal;
-    let g = '';
-    for (let i = 0; i < 5; i++){ const ang = i * 72; g += `<ellipse cx="${x}" cy="${y - r*.55}" rx="${r*.55}" ry="${r*.62}" fill="${a}" transform="rotate(${ang} ${x} ${y})"/>`; }
-    for (let i = 0; i < 4; i++){ const ang = i * 90 + 40; g += `<ellipse cx="${x}" cy="${y - r*.35}" rx="${r*.42}" ry="${r*.45}" fill="${b}" transform="rotate(${ang} ${x} ${y})"/>`; }
-    g += `<circle cx="${x}" cy="${y}" r="${r*.38}" fill="${c}"/>`;
-    g += `<path d="M${x} ${y}m-${r*.22} 0a${r*.22} ${r*.22} 0 1 1 ${r*.3} ${r*.12}a${r*.14} ${r*.14} 0 1 1 -${r*.2} -${r*.12}" fill="none" stroke="${a}" stroke-width="${Math.max(.8, r*.07)}" stroke-linecap="round"/>`;
-    return g;
-  };
-  const bud = (x, y, pal, ang) => `<g transform="rotate(${ang} ${x} ${y})"><path d="M${x} ${y}c-3-4-3-9 0-12 3 3 3 8 0 12z" fill="${pal[1]}"/><path d="M${x} ${y}c-3-1-5-4-4-7M${x} ${y}c3-1 5-4 4-7" stroke="#8fae8b" stroke-width="1.2" fill="none" stroke-linecap="round"/></g>`;
-  const leaf = (x, y, ang, sz) => `<path d="M${x} ${y}q${sz*.5} ${-sz*.45} ${sz} 0q${-sz*.5} ${sz*.45} ${-sz} 0z" fill="#a9c7a0" stroke="#86a67f" stroke-width=".6" transform="rotate(${ang} ${x} ${y})"/><path d="M${x} ${y}h${sz*.85}" stroke="#86a67f" stroke-width=".5" transform="rotate(${ang} ${x} ${y})"/>`;
-  let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+  const SEED = Math.floor(Math.random() * 1e9);      /* fixed for this visit, so a resize keeps the same layout */
+  const PINKS = [['#f8ccd4','#f0a2ae','#da7383'],['#fbdac6','#f3b496','#df8d6d'],['#f9d3da','#f2aab5','#e3808f'],['#f4bac4','#e98896','#c85c6d'],['#fde3e6','#f6c0c8','#e898a4']];
+  let seed; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const pickPal = () => PINKS[Math.floor(rnd() * PINKS.length)];
+  const leaf = (x, y, ang, sz) => `<g transform="rotate(${ang.toFixed(0)} ${x.toFixed(1)} ${y.toFixed(1)})"><path d="M${x} ${y}q${sz*.5} ${-sz*.45} ${sz} 0q${-sz*.5} ${sz*.45} ${-sz} 0z" fill="#a9c7a0" stroke="#86a67f" stroke-width=".6"/><path d="M${x} ${y}h${sz*.85}" stroke="#86a67f" stroke-width=".5"/></g>`;
+  function rose(x, y, r, pal){
+    const [a, b, c] = pal, ring = (n, k, rx, ry, off, fill, cls, rot) => {
+      let g = `<g class="ring ${cls}">`;
+      for (let i = 0; i < n; i++) g += `<ellipse cx="${x}" cy="${(y - r*off).toFixed(1)}" rx="${(r*rx).toFixed(1)}" ry="${(r*ry).toFixed(1)}" fill="${fill}" stroke="${c}" stroke-opacity=".25" stroke-width=".5" transform="rotate(${(i*360/n + rot).toFixed(0)} ${x} ${y})"/>`;
+      return g + '</g>';
+    };
+    return ring(6, 0, .5, .62, .55, a, 'r0', 0) + ring(5, 1, .45, .5, .38, b, 'r1', 30) + ring(4, 2, .36, .38, .2, a, 'r2', 55)
+      + `<g class="ring r3"><circle cx="${x}" cy="${y}" r="${(r*.3).toFixed(1)}" fill="${c}"/><path d="M${x - r*.16} ${y}a${r*.16} ${r*.16} 0 1 1 ${r*.22} ${r*.09}a${r*.1} ${r*.1} 0 1 1 ${-r*.15} ${-r*.08}" fill="none" stroke="${b}" stroke-width="${Math.max(.7, r*.06).toFixed(1)}" stroke-linecap="round"/></g>`;
+  }
+  const bud = (x, y, pal, ang) => `<g transform="rotate(${ang.toFixed(0)} ${x.toFixed(1)} ${y.toFixed(1)})"><path d="M${x} ${y}c-3.2-4-3.2-9.5 0-12.5 3.2 3 3.2 8.5 0 12.5z" fill="${pal[1]}"/><path d="M${x} ${y}c-3.5-1-5.5-4-4.5-7.5M${x} ${y}c3.5-1 5.5-4 4.5-7.5" stroke="#8fae8b" stroke-width="1.2" fill="none" stroke-linecap="round"/></g>`;
+
   function build(svg, H, side){
-    seed = side ? 31 : 7;
-    const W = innerWidth <= 600 ? 36 : 46, cx = W * .5, amp = W * .2;
-    const xAt = y => cx + Math.sin(y / 95 + side * 1.7) * amp + Math.sin(y / 37) * 1.5;
-    let d = `M${xAt(0).toFixed(1)} 0`;
-    for (let y = 12; y <= H; y += 12) d += ` L${xAt(y).toFixed(1)} ${y}`;
-    let bits = '';
-    for (let y = 40, i = 0; y < H - 10; y += 34 + rnd() * 20, i++){
-      const x = xAt(y), out = i % 2 ? 1 : -1;
-      bits += `<g class="bit" data-y="${y}" style="--o:${out > 0 ? '0% 50%' : '100% 50%'}">${leaf(x, y, out > 0 ? -25 - rnd()*25 : 205 + rnd()*25, 11 + rnd()*6)}</g>`;
-      if (rnd() < .28) bits += `<path class="tendril bit on" d="M${x} ${y}c${out*6} -2 ${out*9} -8 ${out*5} -11 ${-out*3} -2 ${-out*4} 2 ${-out*1} 4"/>`;
-    }
-    const step = Math.max(170, H / 26);
-    for (let y = 120 + side * 140, n = 0; y < H - 40; y += step * (.8 + rnd() * .5), n++){
-      const x = xAt(y) + (rnd() - .5) * 4, r = (W <= 36 ? 10 : 12.5) + rnd() * 4, pal = PINKS[Math.floor(rnd() * PINKS.length)];
-      bits += `<g class="bit rose" data-y="${y}" style="--d:${(-rnd()*5).toFixed(1)}s">${leaf(x - 2, y + r*.8, 150, 10)}${leaf(x + 2, y + r*.8, 30, 10)}${rose(x, y, r, pal)}</g>`;
-      if (rnd() < .6){ const by = y + step * .38; bits += `<g class="bit" data-y="${by}">${bud(xAt(by) + 4, by, pal, 35)}</g>`; }
+    seed = (SEED + side * 7919) % 2147483646 + 1;
+    const W = innerWidth <= 600 ? 36 : 58;
+    let stems = '', bits = '';
+    const segs = [];
+    let y = 10 + rnd() * 120;
+    while (y < H - 60){
+      const len = 140 + rnd() * 420, y1 = Math.min(H - 10, y + len);
+      const cx = W * (.3 + rnd() * .3), amp = W * (.12 + rnd() * .16), ph = rnd() * 6, fr = 70 + rnd() * 60;
+      const xAt = t => cx + Math.sin(t / fr + ph) * amp;
+      const w = (1.1 + rnd() * .9).toFixed(1);
+      let d = `M${xAt(y).toFixed(1)} ${y.toFixed(0)}`;
+      for (let t = y + 10; t <= y1; t += 10) d += ` L${xAt(t).toFixed(1)} ${t.toFixed(0)}`;
+      const id = segs.length; segs.push({y0: y, y1});
+      stems += `<path class="stem" data-s="${id}" pathLength="1" stroke-width="${w}" d="${d}"/>`;
+      /* short side branch now and then */
+      if (rnd() < .55){
+        const by = y + (y1 - y) * (.3 + rnd() * .4), bx = xAt(by), dir = rnd() < .5 ? -1 : 1, bl = 30 + rnd() * 40;
+        const ex = Math.max(2, Math.min(W - 2, bx + dir * W * .35)), ey = by + bl;
+        segs.push({y0: by, y1: ey});
+        stems += `<path class="stem" data-s="${segs.length - 1}" pathLength="1" stroke-width="${(w * .75).toFixed(1)}" d="M${bx.toFixed(1)} ${by.toFixed(0)} Q${(bx + dir * 4).toFixed(1)} ${(by + bl * .6).toFixed(0)} ${ex.toFixed(1)} ${ey.toFixed(0)}"/>`;
+        if (rnd() < .7){ const pal = pickPal(); bits += `<g class="bit" data-y="${ey}">${bud(ex, ey + 2, pal, dir * (150 + rnd() * 30))}</g>`; }
+        else bits += `<g class="bit" data-y="${ey}">${leaf(ex, ey, dir > 0 ? 40 : 140, 11)}</g>`;
+      }
+      /* leaves along the sprig */
+      for (let t = y + 18, i = 0; t < y1 - 6; t += 26 + rnd() * 26, i++){
+        const x = xAt(t), out = (i + side) % 2 ? 1 : -1;
+        bits += `<g class="bit" data-y="${t.toFixed(0)}" style="--o:${out > 0 ? '0% 50%' : '100% 50%'}">${leaf(x, t, out > 0 ? -20 - rnd()*30 : 200 + rnd()*30, 9 + rnd()*7)}</g>`;
+        if (rnd() < .18) bits += `<path class="tendril bit" data-y="${t.toFixed(0)}" d="M${x.toFixed(1)} ${t.toFixed(0)}c${out*6} -2 ${out*9} -8 ${out*5} -11 ${-out*3} -2 ${-out*4} 2 ${-out*1} 4"/>`;
+      }
+      /* roses: a mix of big, medium and small, often clustered */
+      let t = y + 30 + rnd() * 60;
+      while (t < y1 - 10){
+        const roll = rnd(), r = roll < .25 ? 15 + rnd() * 6 : roll < .65 ? 10 + rnd() * 3 : 6 + rnd() * 2.5;
+        const rr = innerWidth <= 600 ? r * .82 : r, x = xAt(t) + (rnd() - .5) * 6, pal = pickPal();
+        bits += `<g class="rose" data-y="${t.toFixed(0)}" style="--d:${(-rnd()*5).toFixed(1)}s"><g class="sway"><g class="calyx">${leaf(x - 1, t + rr*.75, 150 + rnd()*20, rr * .9)}${leaf(x + 1, t + rr*.75, 10 + rnd()*20, rr * .9)}</g>${rose(x.toFixed(1)*1, t, rr, pal)}</g></g>`;
+        if (rr > 12 && rnd() < .7){ /* little companion rose or bud next to a big one */
+          const t2 = t + rr * 1.3, x2 = xAt(t2) + (rnd() < .5 ? -1 : 1) * rr * .7;
+          bits += rnd() < .5
+            ? `<g class="rose" data-y="${t2.toFixed(0)}" style="--d:${(-rnd()*5).toFixed(1)}s"><g class="sway">${rose(+x2.toFixed(1), t2, rr * .5, pickPal())}</g></g>`
+            : `<g class="bit" data-y="${t2.toFixed(0)}">${bud(x2, t2, pal, 160 + rnd() * 40)}</g>`;
+        }
+        t += 90 + rnd() * 170;
+      }
+      y = y1 + 30 + rnd() * 160;   /* a gap before the next sprig */
     }
     svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-    svg.setAttribute('preserveAspectRatio', 'none');
     svg.style.height = H + 'px';
-    svg.innerHTML = `<path class="stem" pathLength="1" d="${d}"/>${bits}`;
-    svg._bits = [...svg.querySelectorAll('.bit[data-y]')].map(el => ({el, y: +el.dataset.y}));
+    svg.innerHTML = stems + bits;
+    svg._stems = [...svg.querySelectorAll('.stem')].map(el => ({el, ...segs[+el.dataset.s]}));
+    svg._bits = [...svg.querySelectorAll('[data-y]:not(.stem)')].map(el => ({el, y: +el.dataset.y}));
   }
   let H = 0;
-  function rebuild(){
-    const h = sheet.scrollHeight; if (Math.abs(h - H) < 4) return; H = h;
+  function rebuild(force){
+    const h = sheet.scrollHeight; if (!force && Math.abs(h - H) < 4) return; H = h;
     build(L, H, 0); build(R, H, 1); grow();
   }
   function grow(){
     const top = sheet.getBoundingClientRect().top;
-    const reach = reduce ? H : Math.min(H, Math.max(0, innerHeight * .92 - top));
+    const reach = reduce ? H : Math.min(H, Math.max(0, innerHeight * .9 - top));
     [L, R].forEach(svg => {
-      svg.style.setProperty('--grow', (1 - reach / H).toFixed(4));
+      svg._stems && svg._stems.forEach(st => { const p = Math.max(0, Math.min(1, (reach - st.y0) / Math.max(1, st.y1 - st.y0))); st.el.style.strokeDashoffset = (1 - p).toFixed(4); });
       svg._bits && svg._bits.forEach(b => b.el.classList.toggle('on', b.y < reach));
     });
   }
   let raf = 0;
   addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; grow(); }); }, {passive:true});
-  addEventListener('resize', () => { H = 0; rebuild(); });
-  'ResizeObserver' in window ? new ResizeObserver(rebuild).observe(sheet) : null;
-  rebuild();
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => rebuild(true), 150); });
+  if ('ResizeObserver' in window) new ResizeObserver(() => rebuild(false)).observe(sheet);
+  rebuild(true);
 })();
 </script>
 
