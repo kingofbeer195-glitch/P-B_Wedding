@@ -167,8 +167,33 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
 
 /* theme */
 .swatches{display:flex;justify-content:center;gap:18px;margin-top:6px}
-.sw{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;color:var(--ink-soft)}
-.sw i{width:44px;height:44px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.sw{display:flex;flex-direction:column;align-items:center;gap:6px;font:inherit;font-size:12px;color:var(--ink-soft);background:none;border:0;padding:4px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.sw i{width:44px;height:44px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06),0 0 0 0 var(--rose);transition:transform .25s cubic-bezier(.3,1.6,.5,1),box-shadow .25s}
+.sw:hover i{transform:scale(1.1)}
+.sw[aria-pressed="true"] i{transform:scale(1.12);box-shadow:inset 0 0 0 1px rgba(0,0,0,.06),0 0 0 3px var(--sheet),0 0 0 5px var(--rose)}
+.sw[aria-pressed="true"]{color:var(--rose-deep)}
+.sw:focus-visible{outline:2px solid var(--rose-deep);outline-offset:2px;border-radius:8px}
+.sw-hint{font-size:13px;color:var(--ink-soft);margin-top:10px}
+.lookbook{position:relative;margin:16px auto 0;max-width:360px;padding:16px 12px 14px;border-radius:18px;background:radial-gradient(120% 90% at 50% 0%,var(--lk-l,#fdeff1),var(--sheet) 70%);border:1px dashed var(--lk,var(--line))}
+.lookbook .figs{display:flex;justify-content:center;align-items:flex-end;gap:4px}
+.lookbook figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}
+.lookbook svg.who{width:min(130px,36vw);height:auto;overflow:visible}
+.lookbook figcaption{font-size:12.5px;color:var(--ink);line-height:1.35}
+.lookbook figcaption b{display:block;font-weight:400;font-size:11px;color:var(--ink-soft);letter-spacing:.12em;font-family:var(--f-display);text-transform:uppercase}
+.lookbook .lk-name{font-family:var(--f-thai-accent);color:var(--rose-deep);font-size:18px;margin-bottom:4px}
+.lookbook .again{margin-top:10px;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;border:1px solid var(--rose);background:var(--sheet);color:var(--rose-deep);font:inherit;font-size:13px;cursor:pointer}
+.lookbook .again:hover,.lookbook .again:focus-visible{background:var(--rose);color:#fff}
+.lookbook .again svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round}
+.lookbook .heart-mid{width:18px;align-self:center;margin-bottom:40px;animation:heart 1.6s ease-in-out infinite}
+.who.pop{animation:whopop .6s cubic-bezier(.3,1.5,.5,1) both}
+.who.pop.m{animation-delay:.12s}
+@keyframes whopop{from{opacity:0;transform:translateY(14px) scale(.85)}to{opacity:1;transform:none}}
+.who .sway{transform-origin:60px 210px;transform-box:view-box;animation:sway 3.4s ease-in-out infinite}
+.who.m .sway{animation-delay:-1.7s}
+@keyframes sway{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(1.5deg)}}
+.who .blink{transform-origin:60px 45px;transform-box:view-box;animation:blink 4s infinite}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+@media (prefers-reduced-motion:reduce){.lookbook *{animation:none!important}}
 
 /* places */
 .places{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
@@ -512,11 +537,13 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
   <section aria-labelledby="h-theme">
     <div class="eyebrow">Dress code</div>
     <h2 id="h-theme">ธีมสีการแต่งกาย</h2>
-    <div class="swatches">
-      <div class="sw"><i style="background:var(--pink)"></i>ชมพูอ่อน</div>
-      <div class="sw"><i style="background:var(--coral)"></i>ชมพูกุหลาบ</div>
-      <div class="sw"><i style="background:var(--peach)"></i>พีช</div>
+    <div class="swatches" role="group" aria-label="เลือกสีเพื่อดูตัวอย่างการแต่งกาย">
+      <button class="sw" type="button" data-c="#f6b8c4" data-n="ชมพูอ่อน" aria-pressed="false"><i style="background:var(--pink)"></i>ชมพูอ่อน</button>
+      <button class="sw" type="button" data-c="#ef8a95" data-n="ชมพูกุหลาบ" aria-pressed="false"><i style="background:var(--coral)"></i>ชมพูกุหลาบ</button>
+      <button class="sw" type="button" data-c="#fbdcc0" data-n="พีช" aria-pressed="false"><i style="background:var(--peach)"></i>พีช</button>
     </div>
+    <p class="sw-hint" id="swHint">แตะที่สีเพื่อดูไอเดียการแต่งกาย ♡</p>
+    <div class="lookbook" id="lookbook" hidden aria-live="polite"></div>
   </section>
 
   <div class="rule"></div>
@@ -801,6 +828,126 @@ tick();
     }
     requestAnimationFrame(f);
   })();
+})();
+
+/* ===== dress-code lookbook: tap a colour, get a random outfit pair ===== */
+(() => {
+  const box = document.getElementById('lookbook'); if (!box) return;
+  const hx = h => [1,3,5].map(i => parseInt(h.slice(i, i+2), 16));
+  const mix = (a, b, t) => '#' + hx(a).map((v, i) => Math.round(v + (hx(b)[i] - v) * t).toString(16).padStart(2,'0')).join('');
+  const SK = '#f7d6c4', SKd = '#eab9a2', HR = '#5a3b2c', SH = '#3b2a24', GOLD = '#e2b46a';
+  const face = (girl) => `
+    <g class="blink"><ellipse cx="51" cy="45" rx="2.6" ry="3.2" fill="#3a2a26"/><ellipse cx="69" cy="45" rx="2.6" ry="3.2" fill="#3a2a26"/>
+    <circle cx="52" cy="44" r=".9" fill="#fff"/><circle cx="70" cy="44" r=".9" fill="#fff"/></g>
+    <ellipse cx="45" cy="52" rx="4" ry="2.4" fill="#f4a6a6" opacity=".55"/><ellipse cx="75" cy="52" rx="4" ry="2.4" fill="#f4a6a6" opacity=".55"/>
+    <path d="M55 53q5 ${girl ? 5 : 4} 10 0" fill="${girl ? '#e0787f' : 'none'}" stroke="#a5524f" stroke-width="1.3" stroke-linecap="round"/>`;
+  const head = (girl, hairStyle) => {
+    const back = girl ? (hairStyle ? `<path d="M34 40c0-18 12-26 26-26s26 8 26 26v34c0 6-6 8-10 4V52H44v26c-4 4-10 2-10-4z" fill="${HR}"/>`
+                                   : `<circle cx="60" cy="16" r="9" fill="${HR}"/>`) : '';
+    const front = girl
+      ? `<path d="M36 40c0-16 11-24 24-24s24 8 24 24c-6-6-12-10-20-11-3 4-12 9-28 11z" fill="${HR}"/>${hairStyle ? '' : `<circle cx="72" cy="20" r="3" fill="#f6b8c4"/><circle cx="76" cy="23" r="2.4" fill="#fbdcc0"/>`}`
+      : `<path d="M36 42c-2-18 10-28 25-28 14 0 26 9 23 27-4-7-10-11-17-12-8 6-20 9-31 13z" fill="${HR}"/>`;
+    return `${back}<rect x="56" y="62" width="8" height="10" fill="${SKd}"/><circle cx="60" cy="44" r="24" fill="${SK}"/>${face(girl)}${front}`;
+  };
+  const armsBare = (y2 = 124) => `<path d="M45 76c-5 1-8 3-9 8l-5 ${y2-86}" stroke="${SK}" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M75 76c5 1 8 3 9 8l5 ${y2-86}" stroke="${SK}" stroke-width="7" fill="none" stroke-linecap="round"/>`;
+  const legs = (y1, y2) => `<rect x="51" y="${y1}" width="6" height="${y2-y1}" rx="3" fill="${SK}"/><rect x="63" y="${y1}" width="6" height="${y2-y1}" rx="3" fill="${SK}"/>`;
+  const heels = c => `<path d="M47 200h11v5H46z" fill="${c}"/><path d="M62 200h11l1 5H62z" fill="${c}"/>`;
+  const shoes = `<ellipse cx="50" cy="206" rx="9" ry="4" fill="${SH}"/><ellipse cx="70" cy="206" rx="9" ry="4" fill="${SH}"/>`;
+
+  const WOMEN = [
+    {n:'เดรสยาวสายเดี่ยว', d:(c,dk,lt) => `${armsBare()}
+      <path d="M47 74h26l-2 36H49z" fill="${c}"/><path d="M50 74l-3-6M70 74l3-6" stroke="${c}" stroke-width="2"/>
+      <path d="M49 108h22q20 50 24 98H25q4-48 24-98z" fill="${c}"/>
+      <path d="M55 112q-6 40-12 92M65 112q6 40 12 92M60 112v92" stroke="${dk}" stroke-width="1" fill="none" opacity=".45"/>
+      <rect x="48" y="106" width="24" height="5" rx="2" fill="${lt}"/><circle cx="60" cy="108.5" r="3" fill="${dk}"/>`},
+    {n:'เดรสสั้นกระโปรงบาน', d:(c,dk,lt) => `${armsBare()}${legs(150,201)}${heels(dk)}
+      <circle cx="45" cy="78" r="6" fill="${c}"/><circle cx="75" cy="78" r="6" fill="${c}"/>
+      <path d="M46 74h28l-2 34H48z" fill="${c}"/>
+      <path d="M48 106h24l20 50H28z" fill="${c}"/>
+      <path d="M53 108l-8 47M60 108v47M67 108l8 47" stroke="${dk}" stroke-width="1.1" opacity=".5"/>
+      <path d="M48 107h24" stroke="${lt}" stroke-width="3"/>`},
+    {n:'เสื้อแขนตุ๊กตา + กระโปรงยาว', d:(c,dk,lt) => `${armsBare(122)}${legs(178,201)}${heels(c)}
+      <path d="M46 74h28l1 38H45z" fill="#fffaf8"/><circle cx="44" cy="80" r="7.5" fill="#fffaf8"/><circle cx="76" cy="80" r="7.5" fill="#fffaf8"/>
+      <path d="M54 74q6 8 12 0" fill="none" stroke="${c}" stroke-width="1.4"/>
+      <path d="M45 110h30l11 72H34z" fill="${c}"/>
+      <path d="M52 112l-5 68M60 112v68M68 112l5 68" stroke="${dk}" stroke-width="1" opacity=".4"/>`},
+    {n:'ชุดไทยสไบ + ผ้าซิ่น', d:(c,dk,lt) => `${armsBare()}
+      <path d="M46 76h28l-1 34H47z" fill="${lt}"/>
+      <path d="M44 74l14-2 18 40-10 2z" fill="${c}"/><path d="M44 74l14-2 18 40" fill="none" stroke="${GOLD}" stroke-width="1.6"/>
+      <path d="M47 108h26l3 98H44z" fill="${c}"/>
+      <path d="M45 186h30M45 192h31" stroke="${GOLD}" stroke-width="2"/><path d="M45 189h31" stroke="${dk}" stroke-width="2.5"/>
+      <path d="M48 108h24" stroke="${GOLD}" stroke-width="3"/>`, hair:0},
+    {n:'จั๊มสูทขากว้าง', d:(c,dk,lt) => `${armsBare()}
+      <path d="M47 74h26l-1 38H48z" fill="${c}"/><path d="M50 74l-3-6M70 74l3-6" stroke="${c}" stroke-width="2"/>
+      <path d="M47 110h26l7 92H62l-2-70-2 70H40z" fill="${c}"/>
+      <path d="M47 110h26" stroke="${dk}" stroke-width="3"/><path d="M60 128v74" stroke="${dk}" stroke-width="1" opacity=".4"/>
+      <path d="M44 202h14v4H43zM62 202h14l1 4H62z" fill="${dk}"/>`},
+  ];
+  const MEN = [
+    {n:'สูทสองชิ้น', d:(c,dk,lt) => `
+      <path d="M43 118h34l-1 86H62l-2-56-2 56H44z" fill="${c}"/>${shoes}
+      <path d="M40 76q20-8 40 0l2 52H38z" fill="${c}"/>
+      <path d="M53 72h14l-7 26z" fill="#fff"/><path d="M58.5 76h3l1.2 16-2.7 4-2.7-4z" fill="${dk}"/>
+      <path d="M53 72l7 26-9-10 3-4zM67 72l-7 26 9-10-3-4z" fill="${dk}" opacity=".55"/>
+      <circle cx="60" cy="108" r="1.6" fill="${dk}"/><circle cx="60" cy="117" r="1.6" fill="${dk}"/>
+      <path d="M40 77l-8 3-4 46h8zM80 77l8 3 4 46h-8z" fill="${c}"/>
+      <circle cx="32" cy="130" r="4.5" fill="${SK}"/><circle cx="88" cy="130" r="4.5" fill="${SK}"/>
+      <path d="M70 84l5-1 1 4z" fill="#fff"/>`},
+    {n:'เชิ้ตพับแขน + สแล็คครีม', d:(c,dk,lt) => `
+      <path d="M43 116h34l-1 88H62l-2-58-2 58H44z" fill="#e9dccd"/>${shoes}
+      <path d="M40 76q20-8 40 0l1 44H39z" fill="${c}"/>
+      <path d="M53 70l7 8 7-8 2 5-9 6-9-6z" fill="${lt}"/><path d="M60 80v38" stroke="${dk}" stroke-width="1" opacity=".5"/>
+      <circle cx="60" cy="90" r="1.2" fill="${dk}"/><circle cx="60" cy="102" r="1.2" fill="${dk}"/>
+      <path d="M40 77l-7 3-2 20h9zM80 77l7 3 2 20h-9z" fill="${c}"/>
+      <path d="M35 100l-3 26M85 100l3 26" stroke="${SK}" stroke-width="7" stroke-linecap="round"/>
+      <path d="M31 98h10M79 98h10" stroke="${lt}" stroke-width="3"/>
+      <path d="M43 116h34" stroke="#8a6d55" stroke-width="3"/>`},
+    {n:'เสื้อกั๊ก + โบว์ไท', d:(c,dk,lt) => `
+      <path d="M43 118h34l-1 86H62l-2-56-2 56H44z" fill="${dk}"/>${shoes}
+      <path d="M40 76q20-8 40 0l1 46H39z" fill="#fff"/>
+      <path d="M44 78l16 22 16-22 2 44H42z" fill="${c}"/><path d="M60 100v22" stroke="${dk}" stroke-width="1" opacity=".5"/>
+      <circle cx="60" cy="106" r="1.4" fill="${dk}"/><circle cx="60" cy="114" r="1.4" fill="${dk}"/>
+      <path d="M53 72l7 3 7-3v8l-7-3-7 3z" fill="${dk}"/><circle cx="60" cy="76" r="1.8" fill="${dk}"/>
+      <path d="M40 77l-8 3-4 46h8zM80 77l8 3 4 46h-8z" fill="#fff"/>
+      <circle cx="32" cy="130" r="4.5" fill="${SK}"/><circle cx="88" cy="130" r="4.5" fill="${SK}"/>`},
+    {n:'ชุดราชปะแตน', d:(c,dk,lt) => `
+      <path d="M43 124h34l-1 80H62l-2-52-2 52H44z" fill="#4a3f44"/>${shoes}
+      <path d="M40 76q20-8 40 0l2 54H38z" fill="${c}"/>
+      <path d="M52 68h16v7H52z" fill="${c}"/><path d="M52 75h16" stroke="${dk}" stroke-width="1"/>
+      <path d="M60 75v55" stroke="${dk}" stroke-width="1" opacity=".5"/>
+      ${[84,94,104,114,124].map(y => `<circle cx="60" cy="${y}" r="1.8" fill="${GOLD}"/>`).join('')}
+      <path d="M40 77l-8 3-4 46h8zM80 77l8 3 4 46h-8z" fill="${c}"/>
+      <circle cx="32" cy="130" r="4.5" fill="${SK}"/><circle cx="88" cy="130" r="4.5" fill="${SK}"/>`},
+  ];
+  const svg = (who, look, c, girl, hairStyle) => {
+    const dk = mix(c, '#5a2b33', .32), lt = mix(c, '#ffffff', .55);
+    return `<svg class="who pop ${girl ? 'w' : 'm'}" viewBox="0 0 120 214" role="img" aria-label="${who} ${look.n}"><ellipse cx="60" cy="208" rx="30" ry="4" fill="rgba(90,50,50,.12)"/><g class="sway">${look.d(c, dk, lt)}${head(girl, hairStyle)}</g></svg>`;
+  };
+  const pick = (arr, not) => { let k; do { k = Math.floor(Math.random() * arr.length); } while (arr.length > 1 && k === not); return k; };
+  let last = {w:-1, m:-1};
+  const HEART = '<svg class="heart-mid" viewBox="0 0 24 24" aria-hidden="true"><path fill="#ef8a95" d="M12 21C6 16.5 2 13 2 8.6 2 5.5 4.4 3 7.4 3c1.8 0 3.5.9 4.6 2.4C13.1 3.9 14.8 3 16.6 3 19.6 3 22 5.5 22 8.6 22 13 18 16.5 12 21z"/></svg>';
+  const DICE = '<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="9" cy="9" r=".8" fill="currentColor"/><circle cx="15" cy="15" r=".8" fill="currentColor"/><circle cx="15" cy="9" r=".8" fill="currentColor"/><circle cx="9" cy="15" r=".8" fill="currentColor"/></svg>';
+  function show(btn){
+    const c = btn.dataset.c, name = btn.dataset.n;
+    const wi = pick(WOMEN, last.w), mi = pick(MEN, last.m); last = {w:wi, m:mi};
+    const W = WOMEN[wi], M = MEN[mi];
+    const hairStyle = W.hair === 0 ? 0 : Math.random() < .5 ? 1 : 0;
+    box.style.setProperty('--lk', c); box.style.setProperty('--lk-l', mix(c, '#ffffff', .7));
+    box.innerHTML = `<div class="lk-name">โทน${name}</div>
+      <div class="figs">
+        <figure>${svg('ผู้หญิง', W, c, true, hairStyle)}<figcaption><b>Her</b>${W.n}</figcaption></figure>
+        ${HEART}
+        <figure>${svg('ผู้ชาย', M, c, false)}<figcaption><b>Him</b>${M.n}</figcaption></figure>
+      </div>
+      <button class="again" type="button">${DICE}สุ่มแบบใหม่</button>`;
+    box.hidden = false;
+    box.querySelector('.again').addEventListener('click', () => show(btn));
+  }
+  document.querySelectorAll('.sw').forEach(btn => btn.addEventListener('click', () => {
+    document.querySelectorAll('.sw').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+    document.getElementById('swHint').hidden = true;
+    show(btn);
+  }));
 })();
 </script>
 
