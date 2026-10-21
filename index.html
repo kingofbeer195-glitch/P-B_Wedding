@@ -93,7 +93,7 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
 .invite{margin:0 auto;max-width:34ch;text-wrap:balance}
 .couple{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center;margin-top:26px}
 .person{min-width:0}
-.person .en{font-family:var(--f-script);color:var(--rose);font-size:clamp(30px,8.4vw,46px);line-height:1.1;overflow-wrap:anywhere}
+.person .en{font-family:var(--f-script);color:var(--rose);font-size:clamp(25px,7.2vw,46px);line-height:1.1;white-space:nowrap}
 .person .th{color:var(--rose-deep);font-size:15px}
 .couple .mid{width:52px}
 
@@ -937,57 +937,50 @@ tick();
   const bud = (x, y, pal, ang) => `<g transform="rotate(${ang.toFixed(0)} ${x.toFixed(1)} ${y.toFixed(1)})"><path d="M${x} ${y}c-3.2-4-3.2-9.5 0-12.5 3.2 3 3.2 8.5 0 12.5z" fill="${pal[1]}"/><path d="M${x} ${y}c-3.5-1-5.5-4-4.5-7.5M${x} ${y}c3.5-1 5.5-4 4.5-7.5" stroke="#8fae8b" stroke-width="1.2" fill="none" stroke-linecap="round"/></g>`;
 
   window.PBR = {rose, leaf, bud};
+  /* daisy drawn in the same ring structure so it blooms like the roses */
+  function daisy(x, y, r){
+    const ring = (n, len, wid, cls, rot, fill) => {
+      let g = `<g class="ring ${cls}">`;
+      for (let i = 0; i < n; i++) g += `<ellipse cx="${x}" cy="${(y - r*len*.55).toFixed(1)}" rx="${(r*wid).toFixed(1)}" ry="${(r*len*.55).toFixed(1)}" fill="${fill}" stroke="#e8d9cc" stroke-width=".5" transform="rotate(${(i*360/n + rot).toFixed(0)} ${x} ${y})"/>`;
+      return g + '</g>';
+    };
+    let dots = '';
+    for (let i = 0; i < 7; i++){ const a = i * 2.4, d = r * .14 * Math.sqrt(i + 1) * .7; dots += `<circle cx="${(x + Math.cos(a)*d).toFixed(1)}" cy="${(y + Math.sin(a)*d).toFixed(1)}" r="${(r*.045).toFixed(2)}" fill="#c98a1f"/>`; }
+    return ring(13, 1, .16, 'r0', 0, '#ffffff') + ring(9, .7, .14, 'r1', 18, '#fffaf3')
+      + `<g class="ring r3"><circle cx="${x}" cy="${y}" r="${(r*.26).toFixed(1)}" fill="#f3c24f" stroke="#dca33a" stroke-width=".6"/>${dots}</g>`;
+  }
+  window.PBR = Object.assign(window.PBR || {}, {daisy});
+
+  /* flowers tucked along the card edge: roses and daisies, no vine; layout random per visit */
   function build(svg, H, side){
     seed = (SEED + side * 7919) % 2147483646 + 1;
-    const W = innerWidth <= 600 ? 36 : 58;
-    let stems = '', bits = '';
-    const segs = [];
-    let y = 10 + rnd() * 120;
-    while (y < H - 60){
-      const len = 140 + rnd() * 420, y1 = Math.min(H - 10, y + len);
-      const cx = W * (.3 + rnd() * .3), amp = W * (.12 + rnd() * .16), ph = rnd() * 6, fr = 70 + rnd() * 60;
-      const xAt = t => cx + Math.sin(t / fr + ph) * amp;
-      const w = (1.1 + rnd() * .9).toFixed(1);
-      let d = `M${xAt(y).toFixed(1)} ${y.toFixed(0)}`;
-      for (let t = y + 10; t <= y1; t += 10) d += ` L${xAt(t).toFixed(1)} ${t.toFixed(0)}`;
-      const id = segs.length; segs.push({y0: y, y1});
-      stems += `<path class="stem" data-s="${id}" pathLength="1" stroke-width="${w}" d="${d}"/>`;
-      /* short side branch now and then */
-      if (rnd() < .55){
-        const by = y + (y1 - y) * (.3 + rnd() * .4), bx = xAt(by), dir = rnd() < .5 ? -1 : 1, bl = 30 + rnd() * 40;
-        const ex = Math.max(2, Math.min(W - 2, bx + dir * W * .35)), ey = by + bl;
-        segs.push({y0: by, y1: ey});
-        stems += `<path class="stem" data-s="${segs.length - 1}" pathLength="1" stroke-width="${(w * .75).toFixed(1)}" d="M${bx.toFixed(1)} ${by.toFixed(0)} Q${(bx + dir * 4).toFixed(1)} ${(by + bl * .6).toFixed(0)} ${ex.toFixed(1)} ${ey.toFixed(0)}"/>`;
-        if (rnd() < .7){ const pal = pickPal(); bits += `<g class="bit" data-y="${ey}">${bud(ex, ey + 2, pal, dir * (150 + rnd() * 30))}</g>`; }
-        else bits += `<g class="bit" data-y="${ey}">${leaf(ex, ey, dir > 0 ? 40 : 140, 11)}</g>`;
+    const W = innerWidth <= 600 ? 36 : 58, edge = W - 8;   /* x where the card edge sits */
+    let bits = '';
+    let y = 40 + rnd() * 100;
+    while (y < H - 30){
+      const n = 1 + Math.floor(rnd() * 3);                   /* 1-3 flowers per cluster */
+      /* leaves first so the flowers sit on top */
+      const nl = 1 + Math.floor(rnd() * 3);
+      for (let i = 0; i < nl; i++){
+        const lx = edge - 4 - rnd() * W * .45, ly = y + (rnd() - .5) * 26;
+        bits += `<g class="bit" data-y="${ly.toFixed(0)}" style="--o:100% 50%">${leaf(lx, ly, 150 + rnd() * 80, 10 + rnd() * 8)}</g>`;
       }
-      /* leaves along the sprig */
-      for (let t = y + 18, i = 0; t < y1 - 6; t += 26 + rnd() * 26, i++){
-        const x = xAt(t), out = (i + side) % 2 ? 1 : -1;
-        bits += `<g class="bit" data-y="${t.toFixed(0)}" style="--o:${out > 0 ? '0% 50%' : '100% 50%'}">${leaf(x, t, out > 0 ? -20 - rnd()*30 : 200 + rnd()*30, 9 + rnd()*7)}</g>`;
-        if (rnd() < .18) bits += `<path class="tendril bit" data-y="${t.toFixed(0)}" d="M${x.toFixed(1)} ${t.toFixed(0)}c${out*6} -2 ${out*9} -8 ${out*5} -11 ${-out*3} -2 ${-out*4} 2 ${-out*1} 4"/>`;
+      for (let i = 0; i < n; i++){
+        const roll = rnd(), isDaisy = rnd() < .42;
+        let r = roll < .25 ? 15 + rnd() * 6 : roll < .65 ? 10 + rnd() * 3 : 6 + rnd() * 2.5;
+        r *= innerWidth <= 600 ? .85 : 1.2;
+        const fx = edge - r * (.7 + rnd() * .8), fy = y + i * r * 1.25 + (rnd() - .5) * 8;
+        const body = isDaisy ? daisy(+fx.toFixed(1), fy, r * 1.05) : rose(+fx.toFixed(1), fy, r, pickPal());
+        bits += `<g class="rose" data-y="${fy.toFixed(0)}" style="--d:${(-rnd()*5).toFixed(1)}s"><g class="sway">${body}</g></g>`;
       }
-      /* roses: a mix of big, medium and small, often clustered */
-      let t = y + 30 + rnd() * 60;
-      while (t < y1 - 10){
-        const roll = rnd(), r = roll < .25 ? 15 + rnd() * 6 : roll < .65 ? 10 + rnd() * 3 : 6 + rnd() * 2.5;
-        const rr = innerWidth <= 600 ? r * .82 : r, x = xAt(t) + (rnd() - .5) * 6, pal = pickPal();
-        bits += `<g class="rose" data-y="${t.toFixed(0)}" style="--d:${(-rnd()*5).toFixed(1)}s"><g class="sway"><g class="calyx">${leaf(x - 1, t + rr*.75, 150 + rnd()*20, rr * .9)}${leaf(x + 1, t + rr*.75, 10 + rnd()*20, rr * .9)}</g>${rose(x.toFixed(1)*1, t, rr, pal)}</g></g>`;
-        if (rr > 12 && rnd() < .7){ /* little companion rose or bud next to a big one */
-          const t2 = t + rr * 1.3, x2 = xAt(t2) + (rnd() < .5 ? -1 : 1) * rr * .7;
-          bits += rnd() < .5
-            ? `<g class="rose" data-y="${t2.toFixed(0)}" style="--d:${(-rnd()*5).toFixed(1)}s"><g class="sway">${rose(+x2.toFixed(1), t2, rr * .5, pickPal())}</g></g>`
-            : `<g class="bit" data-y="${t2.toFixed(0)}">${bud(x2, t2, pal, 160 + rnd() * 40)}</g>`;
-        }
-        t += 90 + rnd() * 170;
-      }
-      y = y1 + 30 + rnd() * 160;   /* a gap before the next sprig */
+      if (rnd() < .3){ const by = y - 14 - rnd() * 10; bits += `<g class="bit" data-y="${by.toFixed(0)}">${bud(edge - 6 - rnd() * 10, by, pickPal(), 200 + rnd() * 60)}</g>`; }
+      y += 110 + rnd() * 190;
     }
     svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
     svg.style.height = H + 'px';
-    svg.innerHTML = stems + bits;
-    svg._stems = [...svg.querySelectorAll('.stem')].map(el => ({el, ...segs[+el.dataset.s]}));
-    svg._bits = [...svg.querySelectorAll('[data-y]:not(.stem)')].map(el => ({el, y: +el.dataset.y}));
+    svg.innerHTML = bits;
+    svg._stems = [];
+    svg._bits = [...svg.querySelectorAll('[data-y]')].map(el => ({el, y: +el.dataset.y}));
   }
   let H = 0;
   function rebuild(force){
