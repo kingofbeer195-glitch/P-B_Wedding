@@ -6,7 +6,7 @@
 <title>Plookrak &amp; Beer Wedding</title>
 <meta name="description" content="ขอเรียนเชิญร่วมงานมงคลสมรส ฉัตรชนก &amp; อนิรุทธิ์ · วันอาทิตย์ที่ 17 มกราคม 2570">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:wght@500;600;700&family=Italiana&family=Trirong:wght@300;400;500&family=Charm:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:wght@500;600;700&family=Oswald:wght@500&family=Italiana&family=Trirong:wght@300;400;500&family=Charm:wght@400;700&display=swap">
 <style>
 body{margin:0}img{max-width:100%}
 /* Layout: a single tall invitation "sheet" on blush paper, read top to bottom like the printed card, framed by its own watercolor florals */
@@ -31,16 +31,18 @@ section{position:relative;padding:40px 28px;text-align:center}
 h2{font-family:var(--f-thai-accent);font-weight:400;color:var(--rose-deep);font-size:28px;margin:6px 0 18px;text-wrap:balance}
 
 /* hero */
-.hero{position:relative;overflow:hidden;aspect-ratio:760/1120;max-width:100%;padding:28px 18px 26px;text-align:center;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hero{position:relative;overflow:hidden;aspect-ratio:760/1040;max-width:100%;padding:28px 18px 26px;text-align:center;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
 .hero-bg::before{content:"";position:absolute;left:4%;right:4%;bottom:2%;height:88%;border-radius:50%;background:radial-gradient(closest-side,#fbe3e6,rgba(251,227,230,0));}
-.hero-bg .art{position:absolute;left:9%;width:82%;bottom:0;aspect-ratio:760/1350;max-width:100%;-webkit-mask:radial-gradient(ellipse 50% 50% at 50% 50%,#000 72%,transparent 100%);mask:radial-gradient(ellipse 50% 50% at 50% 50%,#000 72%,transparent 100%)}
+.hero-bg .art{position:absolute;left:15%;width:70%;bottom:2%;aspect-ratio:760/1350;max-width:100%;-webkit-mask:radial-gradient(ellipse 50% 50% at 50% 50%,#000 72%,transparent 100%);mask:radial-gradient(ellipse 50% 50% at 50% 50%,#000 72%,transparent 100%)}
 .hero-bg .art img{position:absolute;inset:0;width:100%;height:100%;transform-origin:50% 70%;animation:breathe 10s ease-in-out infinite}
 .hero-bg .art>span{position:absolute;pointer-events:none}
 .hero-bg .veil{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,253,252,0) 0%,rgba(255,253,252,0) 84%,rgba(255,253,252,.6) 94%,var(--sheet) 100%)}
 .hero-bg>span{position:absolute;pointer-events:none}
 .hero-top,.hero-bot{position:relative;z-index:1}
-.hero .names{font-size:clamp(44px,13vw,72px);line-height:1.05;margin:4px 0 0;text-shadow:0 0 2px #fff,0 0 6px #fff,0 0 16px rgba(255,253,252,.95),0 0 28px rgba(255,253,252,.8)}
+.hero .names{font-size:clamp(44px,13vw,72px);line-height:1.05;margin:4px 0 0;filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 6px rgba(255,255,255,.95)) drop-shadow(0 0 14px rgba(255,253,252,.9))}
+.shine-text{background:linear-gradient(110deg,var(--rose) 42%,#fbe0e3 50%,var(--rose) 58%) 0 0/300% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--rose);animation:shine 5s ease-in-out 2s infinite}
+.shine-text .amp{background:inherit;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;background-size:300% 100%;animation:inherit}
 .hero .names .amp{display:inline;font-size:.6em;margin:0 .12em}
 .hero .logo{width:62px}
 .hero.kiss .big{animation:bigheart 2s ease both}
@@ -100,10 +102,39 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
 .dateblock .side{border-block:1px solid var(--ink-soft);padding:4px 0;font-size:18px}
 .dateblock .day{font-family:var(--f-display);font-size:72px;line-height:1;color:var(--ink)}
 .be{font-size:14px;color:var(--ink-soft);margin-top:4px;font-variant-numeric:tabular-nums}
-.countdown{display:flex;justify-content:center;gap:10px;margin-top:26px;flex-wrap:wrap}
-.cd{min-width:66px;padding:10px 6px;border:1px solid var(--line);background:var(--paper)}
-.cd b{display:block;font-family:var(--f-display);font-weight:400;font-size:28px;line-height:1.1;color:var(--rose-deep);font-variant-numeric:tabular-nums}
-.cd small{font-size:12px;color:var(--ink-soft)}
+/* countdown: hourglass + flip clock */
+.countdown{margin-top:24px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.hg{width:44px;height:66px;overflow:visible}
+.hg .rot{transform-origin:22px 33px;transform-box:view-box;animation:hgflip 60s linear infinite;animation-delay:var(--hgd,0s)}
+.hg .sTop{transform-origin:22px 30px;transform-box:view-box;animation:hgtop 60s linear infinite;animation-delay:var(--hgd,0s)}
+.hg .sBot{transform-origin:22px 59px;transform-box:view-box;animation:hgbot 60s linear infinite;animation-delay:var(--hgd,0s)}
+.hg .stream{stroke-dasharray:2 3;animation:hgstream .5s linear infinite,hgshow 60s linear infinite;animation-delay:0s,var(--hgd,0s)}
+@keyframes hgtop{0%{transform:scaleY(1)}96%,100%{transform:scaleY(0)}}
+@keyframes hgbot{0%{transform:scaleY(0)}96%,100%{transform:scaleY(1)}}
+@keyframes hgflip{0%,96.5%{transform:rotate(0)}100%{transform:rotate(180deg)}}
+@keyframes hgstream{to{stroke-dashoffset:-5}}
+@keyframes hgshow{0%,95%{opacity:1}96%,100%{opacity:0}}
+.flip{display:flex;align-items:flex-start;justify-content:center;gap:6px;max-width:100%}
+.fu{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
+.fu small{font-size:12px;color:var(--ink-soft)}
+.fds{display:flex;gap:3px}
+.colon{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:26px;line-height:46px;color:#6d6264}
+.fd{--h:46px;position:relative;width:clamp(26px,7.4vw,34px);height:var(--h);perspective:240px;font-family:"Oswald","Bebas Neue","Arial Narrow",sans-serif;font-weight:500;font-size:calc(var(--h) * .74);color:#f5f1f2;border-radius:4px;box-shadow:0 3px 6px -2px rgba(40,30,32,.45)}
+.fd>span{position:absolute;left:0;right:0;height:50%;overflow:hidden;background:#4b4547;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.fd>span>i{display:block;height:var(--h);line-height:var(--h);text-align:center;font-style:normal;font-variant-numeric:tabular-nums}
+.fd .t,.fd .ft{top:0;border-radius:4px 4px 0 0;background:linear-gradient(#433d3f,#524b4e)}
+.fd .b,.fd .fb{bottom:0;border-radius:0 0 4px 4px}
+.fd .b>i,.fd .fb>i{margin-top:calc(var(--h) / -2)}
+.fd::after{content:"";position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-.75px;background:#2b2627;z-index:5}
+.fd::before{content:"";position:absolute;left:-2px;top:50%;width:3px;height:8px;margin-top:-4px;border-radius:1px;background:#8a8284;z-index:6;box-shadow:calc(clamp(26px,7.4vw,34px) + 1px) 0 0 #8a8284}
+.fd .ft{transform-origin:50% 100%;z-index:3}
+.fd .fb{transform-origin:50% 0;transform:rotateX(90deg);z-index:3}
+.fd.go .ft{animation:flipT .3s ease-in forwards}
+.fd.go .fb{animation:flipB .3s ease-out .3s forwards}
+@keyframes flipT{to{transform:rotateX(-90deg)}}
+@keyframes flipB{to{transform:rotateX(0)}}
+@media (max-width:380px){.fd{--h:40px}.colon{line-height:40px;font-size:22px}.flip{gap:4px}}
+@media (prefers-reduced-motion:reduce){.hg *,.fd *{animation:none!important}}
 
 /* schedule */
 .timeline{list-style:none;padding:0;margin:14px auto 0;max-width:470px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;position:relative}
@@ -164,7 +195,7 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
 @keyframes shine{0%{background-position:100% 0}45%,100%{background-position:0 0}}
 .play .hero .logo{animation:inkdraw 1.6s ease .2s both,shine 5s ease-in-out 2.4s infinite}
 @keyframes inkdraw{from{clip-path:inset(0 0 100% 0);opacity:.2}to{clip-path:inset(0 0 0 0);opacity:1}}
-.play .hero .names{animation:rise 1.1s ease .7s both}
+.play .hero .names{animation:rise 1.1s ease .7s both,shine 5s ease-in-out 2.4s infinite}
 .play .hero .lead{animation:rise 1s ease 1.1s both}
 .play .hero .date-en{animation:rise 1s ease 1.35s both}
 .names{position:relative}
@@ -190,7 +221,6 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
 .rings .pair{animation:swing 4s ease-in-out infinite;transform-origin:60px 10px;transform-box:view-box}
 @keyframes swing{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
 .rings .tw{animation:twinkle 2.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
-.cd b{display:block}
 
 /* tap hearts */
 .hearty{position:fixed;z-index:35;width:22px;height:22px;pointer-events:none;margin:-11px 0 0 -11px;animation:floatup 1.4s ease-out forwards}
@@ -347,7 +377,7 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
     </div>
     <div class="hero-top">
     <div class="logo" role="img" aria-label="โลโก้งานแต่ง bP"></div>
-    <h1 class="names">Plookrak<span class="amp">&amp;</span>Beer<span class="spark" style="left:6%;top:4%"><svg viewBox="0 0 20 20"><path d="M10 0C11 7 13 9 20 10 13 11 11 13 10 20 9 13 7 11 0 10 7 9 9 7 10 0z"/></svg></span><span class="spark" style="right:8%;top:30%;animation-delay:.9s;width:10px;height:10px"><svg viewBox="0 0 20 20"><path d="M10 0C11 7 13 9 20 10 13 11 11 13 10 20 9 13 7 11 0 10 7 9 9 7 10 0z"/></svg></span><span class="spark" style="left:20%;bottom:6%;animation-delay:1.7s;width:9px;height:9px"><svg viewBox="0 0 20 20"><path d="M10 0C11 7 13 9 20 10 13 11 11 13 10 20 9 13 7 11 0 10 7 9 9 7 10 0z"/></svg></span><span class="spark" style="right:22%;bottom:-2%;animation-delay:.4s"><svg viewBox="0 0 20 20"><path d="M10 0C11 7 13 9 20 10 13 11 11 13 10 20 9 13 7 11 0 10 7 9 9 7 10 0z"/></svg></span></h1>
+    <h1 class="names shine-text">Plookrak<span class="amp">&amp;</span>Beer<span class="spark" style="left:6%;top:4%"><svg viewBox="0 0 20 20"><path d="M10 0C11 7 13 9 20 10 13 11 11 13 10 20 9 13 7 11 0 10 7 9 9 7 10 0z"/></svg></span><span class="spark" style="right:8%;top:30%;animation-delay:.9s;width:10px;height:10px"><svg viewBox="0 0 20 20"><path d="M10 0C11 7 13 9 20 10 13 11 11 13 10 20 9 13 7 11 0 10 7 9 9 7 10 0z"/></svg></span><span class="spark" style="left:20%;bottom:6%;animation-delay:1.7s;width:9px;height:9px"><svg viewBox="0 0 20 20"><path d="M10 0C11 7 13 9 20 10 13 11 11 13 10 20 9 13 7 11 0 10 7 9 9 7 10 0z"/></svg></span><span class="spark" style="right:22%;bottom:-2%;animation-delay:.4s"><svg viewBox="0 0 20 20"><path d="M10 0C11 7 13 9 20 10 13 11 11 13 10 20 9 13 7 11 0 10 7 9 9 7 10 0z"/></svg></span></h1>
     </div>
     <div class="hero-bot">
       <p class="lead">Request the pleasure of your company<br>at their wedding celebration</p>
@@ -377,9 +407,9 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
     </div>
     <p class="invite">มีความยินดีขอเรียนเชิญท่านเพื่อเป็นเกียรติ<br>เนื่องในพิธีมงคลสมรส ระหว่าง</p>
     <div class="couple">
-      <div class="person"><div class="en">Chatchanok</div><div class="th">นางสาวฉัตรชนก เสนกลาง</div></div>
+      <div class="person"><div class="en shine-text">Chatchanok</div><div class="th">นางสาวฉัตรชนก เสนกลาง</div></div>
       <img class="flower mid" src="data:image/jpeg;base64,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" alt="">
-      <div class="person"><div class="en">Anirut</div><div class="th">นายอนิรุทธิ์ พัชรวิจิตร</div></div>
+      <div class="person"><div class="en shine-text" style="animation-delay:2.6s">Anirut</div><div class="th">นายอนิรุทธิ์ พัชรวิจิตร</div></div>
     </div>
     <svg class="beat" viewBox="0 0 300 40" aria-hidden="true">
       <path class="ln" pathLength="1" d="M0 22H98L106 10 115 34 122 16 128 22H136"/>
@@ -409,11 +439,29 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
       <div class="side">มกราคม</div>
     </div>
     <div class="be">พ.ศ. 2570</div>
-    <div class="countdown" id="countdown" aria-live="polite">
-      <div class="cd"><b id="cd-d">–</b><small>วัน</small></div>
-      <div class="cd"><b id="cd-h">–</b><small>ชั่วโมง</small></div>
-      <div class="cd"><b id="cd-m">–</b><small>นาที</small></div>
-      <div class="cd"><b id="cd-s">–</b><small>วินาที</small></div>
+    <div class="countdown" id="countdown">
+      <svg class="hg" viewBox="0 0 44 66" aria-hidden="true">
+        <defs>
+          <clipPath id="hgTopClip"><path d="M10 7h24c0 9-5 14-10.5 22.6h-3C15 21 10 16 10 7z"/></clipPath>
+          <clipPath id="hgBotClip"><path d="M20.5 36.4h3C29 45 34 50 34 59H10c0-9 5-14 10.5-22.6z"/></clipPath>
+          <linearGradient id="hgWood" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#d6a585"/><stop offset="1" stop-color="#b98365"/></linearGradient>
+        </defs>
+        <g class="rot">
+          <g clip-path="url(#hgTopClip)"><rect class="sTop" x="8" y="14" width="28" height="16" fill="#f2b6a6"/></g>
+          <g clip-path="url(#hgBotClip)"><rect class="sBot" x="8" y="44" width="28" height="15" fill="#f2b6a6"/></g>
+          <line class="stream" x1="22" y1="30" x2="22" y2="58" stroke="#ea9f8f" stroke-width="1.4"/>
+          <path d="M10 7h24c0 9-5 14-10.5 22.6v6.8C29 45 34 50 34 59H10c0-9 5-14 10.5-22.6v-6.8C15 21 10 16 10 7z" fill="rgba(255,255,255,.25)" stroke="#c98f8f" stroke-width="1.3"/>
+          <path d="M13.5 10c.5 5 2.5 9 5 12" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity=".8"/>
+          <rect x="5" y="3" width="34" height="4.5" rx="2" fill="url(#hgWood)"/>
+          <rect x="5" y="58.5" width="34" height="4.5" rx="2" fill="url(#hgWood)"/>
+        </g>
+      </svg>
+      <div class="flip" role="timer" aria-live="off" id="flip">
+        <div class="fu"><div class="fds" id="fu-d"></div><small>วัน</small></div><span class="colon" aria-hidden="true">:</span>
+        <div class="fu"><div class="fds" id="fu-h"></div><small>ชั่วโมง</small></div><span class="colon" aria-hidden="true">:</span>
+        <div class="fu"><div class="fds" id="fu-m"></div><small>นาที</small></div><span class="colon" aria-hidden="true">:</span>
+        <div class="fu"><div class="fds" id="fu-s"></div><small>วินาที</small></div>
+      </div>
     </div>
   </section>
 
@@ -672,21 +720,46 @@ document.querySelector('.sheet').addEventListener('click', e => {
 
 /* countdown to 17 Jan 2027 07:00 (Bangkok) */
 const target = Date.parse('2027-01-17T07:00:00+07:00');
-const el = k => document.getElementById('cd-' + k);
-function set(k, v){
-  const e = el(k); v = String(v);
-  if (e.textContent === v) return;
-  const first = e.textContent === '–'; e.textContent = v;
-  if (!first && !REDUCE && e.animate) e.animate([{transform:'translateY(-8px)', opacity:.2},{transform:'none', opacity:1}], {duration:420, easing:'ease-out'});
+/* flip-clock digits */
+function makeDigit(ch){
+  const d = document.createElement('span'); d.className = 'fd';
+  d.innerHTML = `<span class="t"><i>${ch}</i></span><span class="b"><i>${ch}</i></span><span class="ft"><i>${ch}</i></span><span class="fb"><i>${ch}</i></span>`;
+  d._v = ch; return d;
 }
+function flipTo(d, ch){
+  if (d._v === ch) return;
+  const [t, b, ft, fb] = d.children, old = d._v; d._v = ch;
+  if (REDUCE){ [t,b,ft,fb].forEach(x => x.firstChild.textContent = ch); return; }
+  t.firstChild.textContent = ch;   /* new top waits behind the falling flap */
+  b.firstChild.textContent = old;  /* old bottom stays until the flap lands */
+  ft.firstChild.textContent = old;
+  fb.firstChild.textContent = ch;
+  d.classList.remove('go'); void d.offsetWidth; d.classList.add('go');
+  clearTimeout(d._t);
+  d._t = setTimeout(() => { b.firstChild.textContent = ch; ft.firstChild.textContent = ch; d.classList.remove('go'); }, 620);
+}
+function setUnit(k, str){
+  const box = document.getElementById('fu-' + k);
+  while (box.children.length < str.length) box.prepend(makeDigit(str[str.length - box.children.length - 1]));
+  while (box.children.length > str.length) box.firstChild.remove();
+  [...box.children].forEach((d, i) => flipTo(d, str[i]));
+}
+/* hourglass: one full pour per minute, turning over on the minute */
+function syncHourglass(){
+  const sec = (Date.now() / 1000) % 60;
+  document.querySelector('.hg').style.setProperty('--hgd', (-sec).toFixed(2) + 's');
+}
+syncHourglass();
+document.addEventListener('visibilitychange', () => { if (!document.hidden) syncHourglass(); });
 function tick(){
   let s = Math.max(0, Math.floor((target - Date.now()) / 1000));
   if (s === 0){ document.getElementById('countdown').innerHTML = '<p style="color:var(--rose-deep)">วันนี้คือวันสำคัญของเรา ♡</p>'; return; }
-  set('d', Math.floor(s / 86400));
-  set('h', String(Math.floor(s % 86400 / 3600)).padStart(2,'0'));
-  set('m', String(Math.floor(s % 3600 / 60)).padStart(2,'0'));
-  set('s', String(s % 60).padStart(2,'0'));
-  setTimeout(tick, 1000);
+  setUnit('d', String(Math.floor(s / 86400)).padStart(2,'0'));
+  setUnit('h', String(Math.floor(s % 86400 / 3600)).padStart(2,'0'));
+  setUnit('m', String(Math.floor(s % 3600 / 60)).padStart(2,'0'));
+  setUnit('s', String(s % 60).padStart(2,'0'));
+  document.getElementById('flip').setAttribute('aria-label', `อีก ${Math.floor(s/86400)} วัน ${Math.floor(s%86400/3600)} ชั่วโมง ${Math.floor(s%3600/60)} นาที`);
+  setTimeout(tick, 1000 - Date.now() % 1000 + 5);
 }
 tick();
 
