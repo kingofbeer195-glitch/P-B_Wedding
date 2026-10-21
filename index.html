@@ -31,16 +31,16 @@ section{position:relative;padding:40px 28px;text-align:center}
 h2{font-family:var(--f-thai-accent);font-weight:400;color:var(--rose-deep);font-size:28px;margin:6px 0 18px;text-wrap:balance}
 
 /* hero */
-.hero{position:relative;overflow:hidden;aspect-ratio:760/1240;max-width:100%;padding:28px 18px 26px;text-align:center;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hero{position:relative;overflow:hidden;aspect-ratio:760/1120;max-width:100%;padding:28px 18px 26px;text-align:center;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
-.hero-bg::before{content:"";position:absolute;left:8%;right:8%;bottom:6%;height:70%;border-radius:50%;background:radial-gradient(closest-side,#fbe3e6,rgba(251,227,230,0));}
-.hero-bg .art{position:absolute;left:15%;width:70%;bottom:0;aspect-ratio:760/1350;max-width:100%;-webkit-mask:radial-gradient(ellipse 56% 54% at 50% 50%,#000 68%,transparent 100%);mask:radial-gradient(ellipse 56% 54% at 50% 50%,#000 68%,transparent 100%)}
+.hero-bg::before{content:"";position:absolute;left:4%;right:4%;bottom:2%;height:88%;border-radius:50%;background:radial-gradient(closest-side,#fbe3e6,rgba(251,227,230,0));}
+.hero-bg .art{position:absolute;left:9%;width:82%;bottom:0;aspect-ratio:760/1350;max-width:100%;-webkit-mask:radial-gradient(ellipse 50% 50% at 50% 50%,#000 72%,transparent 100%);mask:radial-gradient(ellipse 50% 50% at 50% 50%,#000 72%,transparent 100%)}
 .hero-bg .art img{position:absolute;inset:0;width:100%;height:100%;transform-origin:50% 70%;animation:breathe 10s ease-in-out infinite}
 .hero-bg .art>span{position:absolute;pointer-events:none}
-.hero-bg .veil{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,253,252,0) 0%,rgba(255,253,252,0) 70%,rgba(255,253,252,.85) 82%,var(--sheet) 100%)}
+.hero-bg .veil{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,253,252,0) 0%,rgba(255,253,252,0) 84%,rgba(255,253,252,.6) 94%,var(--sheet) 100%)}
 .hero-bg>span{position:absolute;pointer-events:none}
 .hero-top,.hero-bot{position:relative;z-index:1}
-.hero .names{font-size:clamp(44px,13vw,72px);line-height:1.05;margin:4px 0 0;text-shadow:0 0 18px rgba(255,253,252,.95),0 0 4px rgba(255,253,252,.9)}
+.hero .names{font-size:clamp(44px,13vw,72px);line-height:1.05;margin:4px 0 0;text-shadow:0 0 2px #fff,0 0 6px #fff,0 0 16px rgba(255,253,252,.95),0 0 28px rgba(255,253,252,.8)}
 .hero .names .amp{display:inline;font-size:.6em;margin:0 .12em}
 .hero .logo{width:62px}
 .hero.kiss .big{animation:bigheart 2s ease both}
@@ -49,8 +49,8 @@ h2{font-family:var(--f-thai-accent);font-weight:400;color:var(--rose-deep);font-
 .mono{font-family:var(--f-display);color:var(--rose);font-size:15px;letter-spacing:.4em;margin-top:8px}
 .names{font-family:var(--f-script);color:var(--rose);font-weight:400;line-height:.95;font-size:clamp(64px,19vw,104px);margin:14px 0 6px}
 .names .amp{display:block;font-size:.45em;color:var(--ink-soft);margin:.15em 0}
-.hero .lead{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(12px,3.4vw,15px);line-height:1.55;color:#4a2f26;margin:0 0 6px;text-shadow:0 0 10px rgba(255,253,252,.95)}
-.date-en{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:clamp(19px,5.6vw,25px);text-shadow:0 0 10px rgba(255,253,252,.95);letter-spacing:.12em;color:#4a2f26}
+.hero .lead{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(12px,3.4vw,15px);line-height:1.55;color:#4a2f26;margin:0 0 6px;text-shadow:0 0 2px #fff,0 0 6px #fff,0 0 14px rgba(255,253,252,.95)}
+.date-en{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:clamp(19px,5.6vw,25px);text-shadow:0 0 2px #fff,0 0 6px #fff,0 0 14px rgba(255,253,252,.95);letter-spacing:.12em;color:#4a2f26}
 .date-en b{font-weight:700;color:#9c4a53}
 
 /* photos */
