@@ -34,8 +34,8 @@ h2{font-family:var(--f-thai-accent);font-weight:400;color:var(--rose-deep);font-
 .hero{position:relative;overflow:hidden;aspect-ratio:760/1040;max-width:100%;padding:28px 18px 26px;text-align:center;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
 .hero-bg::before{content:"";position:absolute;left:4%;right:4%;bottom:2%;height:88%;border-radius:50%;background:radial-gradient(closest-side,#fbe3e6,rgba(251,227,230,0));}
-.hero-bg .art{position:absolute;left:15%;width:70%;bottom:2%;aspect-ratio:760/1350;max-width:100%;-webkit-mask:radial-gradient(ellipse 50% 50% at 50% 50%,#000 72%,transparent 100%);mask:radial-gradient(ellipse 50% 50% at 50% 50%,#000 72%,transparent 100%)}
-.hero-bg .art img{position:absolute;inset:0;width:100%;height:100%;transform-origin:50% 70%;animation:breathe 10s ease-in-out infinite}
+.hero-bg .art{position:absolute;inset:0;-webkit-mask:linear-gradient(to bottom,#000 74%,transparent 92%);mask:linear-gradient(to bottom,#000 74%,transparent 92%)}
+.hero-bg .art img{position:absolute;inset:0;top:-10%;width:100%;height:100%;object-fit:cover;object-position:57% 50%;transform-origin:57% 80%;animation:breathe 10s ease-in-out infinite}
 .hero-bg .art>span{position:absolute;pointer-events:none}
 .hero-bg .veil{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,253,252,0) 0%,rgba(255,253,252,0) 84%,rgba(255,253,252,.6) 94%,var(--sheet) 100%)}
 .hero-bg>span{position:absolute;pointer-events:none}
@@ -167,9 +167,8 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
 
 /* theme */
 .swatches{display:flex;justify-content:center;gap:18px;margin-top:6px}
-.sw{display:flex;flex-direction:column;align-items:center;gap:6px;font:inherit;font-size:12px;color:var(--ink-soft);background:none;border:0;padding:4px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.sw{display:flex;flex-direction:column;align-items:center;gap:6px;font:inherit;font-size:12px;color:var(--ink-soft);background:none;border:0;padding:4px}
 .sw i{width:44px;height:44px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06),0 0 0 0 var(--rose);transition:transform .25s cubic-bezier(.3,1.6,.5,1),box-shadow .25s}
-.sw:hover i{transform:scale(1.1)}
 .sw[aria-pressed="true"] i{transform:scale(1.12);box-shadow:inset 0 0 0 1px rgba(0,0,0,.06),0 0 0 3px var(--sheet),0 0 0 5px var(--rose)}
 .sw[aria-pressed="true"]{color:var(--rose-deep)}
 .sw:focus-visible{outline:2px solid var(--rose-deep);outline-offset:2px;border-radius:8px}
@@ -475,10 +474,8 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
   <header class="hero reveal" id="scene">
     <div class="hero-bg" aria-hidden="true">
       <div class="art">
-        <img src="couple-cartoon.jpg" alt="" width="760" height="1350">
-        <span class="glint" style="left:27%;top:37.4%"></span>
-        <span class="glint" style="left:59.5%;top:32.6%;animation-delay:1.6s"></span>
-        <span class="sp" style="left:8%;top:52%"></span>
+        <img src="hero-bg.jpg" alt="" width="2000" height="1333">
+                <span class="sp" style="left:8%;top:52%"></span>
         <span class="sp" style="left:90%;top:47%;animation-delay:.8s"></span>
         <span class="sp" style="left:82%;top:60%;animation-delay:1.7s;width:10px;height:10px"></span>
         <span class="fh" style="left:46%;top:40%"></span>
@@ -625,13 +622,11 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
   <section aria-labelledby="h-theme">
     <div class="eyebrow">Dress code</div>
     <h2 id="h-theme">ธีมสีการแต่งกาย</h2>
-    <div class="swatches" role="group" aria-label="เลือกสีเพื่อดูตัวอย่างการแต่งกาย">
-      <button class="sw" type="button" data-c="#f6b8c4" data-n="ชมพูอ่อน" aria-pressed="false"><i style="background:var(--pink)"></i>ชมพูอ่อน</button>
-      <button class="sw" type="button" data-c="#ef8a95" data-n="ชมพูกุหลาบ" aria-pressed="false"><i style="background:var(--coral)"></i>ชมพูกุหลาบ</button>
-      <button class="sw" type="button" data-c="#fbdcc0" data-n="พีช" aria-pressed="false"><i style="background:var(--peach)"></i>พีช</button>
+    <div class="swatches" role="list" aria-label="โทนสีการแต่งกาย">
+      <span class="sw" role="listitem"><i style="background:var(--pink)"></i>ชมพูอ่อน</span>
+      <span class="sw" role="listitem"><i style="background:var(--coral)"></i>ชมพูกุหลาบ</span>
+      <span class="sw" role="listitem"><i style="background:var(--peach)"></i>พีช</span>
     </div>
-    <p class="sw-hint" id="swHint">แตะที่สีเพื่อดูไอเดียการแต่งกาย ♡ แตะซ้ำเพื่อปิด</p>
-    <div class="lookbook" id="lookbook" hidden aria-live="polite"></div>
   </section>
 
   <div class="rule"></div>
@@ -957,59 +952,6 @@ tick();
     }
     requestAnimationFrame(f);
   })();
-})();
-
-/* ===== dress-code lookbook: tap a colour, get a random illustrated outfit pair ===== */
-(() => {
-  const box = document.getElementById('lookbook'); if (!box) return;
-  const LOOKS = {
-    'ชมพูอ่อน': [
-      {src:'looks/pink-1.jpg', her:'เดรสยาวชีฟองสายเดี่ยว', him:'สูทสองชิ้น + เนคไท'},
-      {src:'looks/pink-2.jpg', her:'สลิปเดรสซาติน + เบลเซอร์คลุมไหล่', him:'เบลเซอร์ทรงหลวม + สนีกเกอร์ขาว'},
-      {src:'looks/pink-3.jpg', her:'เดรสแขนตุ๊กตา กระโปรงบาน', him:'เสื้อกั๊ก + โบว์ไท'}],
-    'ชมพูกุหลาบ': [
-      {src:'looks/rose-1.jpg', her:'เดรสเปิดไหล่ระบาย', him:'สูทสลิม + ดอกไม้ติดอก'},
-      {src:'looks/rose-2.jpg', her:'เดรสไหล่เดียวจับพลีท', him:'เบลเซอร์กระดุมสองแถว + เสื้อนิตคอกลม'},
-      {src:'looks/rose-3.jpg', her:'จั๊มสูทขากว้าง', him:'เชิ้ตลินินพับแขน + ชิโน่'}],
-    'พีช': [
-      {src:'looks/peach-1.jpg', her:'ชุดราตรีผ้าทูลล์ปักดอกไม้', him:'เสื้อกั๊ก + โบว์ไท'},
-      {src:'looks/peach-2.jpg', her:'เดรสคอเหลี่ยมผ่าข้าง', him:'เบลเซอร์ลำลอง + ยืดขาว'},
-      {src:'looks/peach-3.jpg', her:'เบลาส์แขนพอง + กระโปรงพลีท', him:'สูทลินินลำลอง'}]
-  };
-  /* warm the cache so the first tap shows instantly */
-  const warm = () => Object.values(LOOKS).flat().forEach(l => { const i = new Image(); i.src = l.src; });
-  'requestIdleCallback' in window ? requestIdleCallback(warm) : setTimeout(warm, 2500);
-  const hx = h => [1,3,5].map(i => parseInt(h.slice(i, i+2), 16));
-  const mix = (a, b, t) => '#' + hx(a).map((v, i) => Math.round(v + (hx(b)[i] - v) * t).toString(16).padStart(2,'0')).join('');
-  const DICE = '<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="9" cy="9" r=".8" fill="currentColor"/><circle cx="15" cy="15" r=".8" fill="currentColor"/><circle cx="15" cy="9" r=".8" fill="currentColor"/><circle cx="9" cy="15" r=".8" fill="currentColor"/></svg>';
-  const last = {};
-  function show(btn){
-    const c = btn.dataset.c, name = btn.dataset.n, list = LOOKS[name];
-    let k; do { k = Math.floor(Math.random() * list.length); } while (list.length > 1 && k === last[name]);
-    last[name] = k; const L = list[k];
-    box.style.setProperty('--lk', c); box.style.setProperty('--lk-l', mix(c, '#ffffff', .7));
-    box.innerHTML = `<button class="lk-x" type="button" aria-label="ปิดตัวอย่างการแต่งกาย">×</button><div class="lk-name">โทน${name}</div>
-      <div class="lk-pic"><img class="who pop" src="${L.src}" width="598" height="800" alt="ภาพการ์ตูนคู่ชายหญิงแต่งกายโทน${name}: ผู้หญิง${L.her} ผู้ชาย${L.him}"></div>
-      <div class="lk-caps"><span><b>Her</b>${L.her}</span><span class="lk-h" aria-hidden="true">♡</span><span><b>Him</b>${L.him}</span></div>
-      <div class="lk-dots" aria-hidden="true">${list.map((_, i) => `<i class="${i === k ? 'on' : ''}"></i>`).join('')}</div>
-      <button class="again" type="button">${DICE}สุ่มแบบใหม่</button>`;
-    box.hidden = false;
-    box.querySelector('.again').addEventListener('click', () => show(btn));
-    box.querySelector('.lk-x').addEventListener('click', close);
-  }
-  function close(){
-    box.classList.add('closing');
-    setTimeout(() => { box.hidden = true; box.classList.remove('closing'); box.innerHTML = ''; }, 260);
-    document.querySelectorAll('.sw').forEach(b => b.setAttribute('aria-pressed', 'false'));
-    document.getElementById('swHint').hidden = false;
-  }
-  document.querySelectorAll('.sw').forEach(btn => btn.addEventListener('click', () => {
-    /* tapping the colour that is already open closes the preview */
-    if (btn.getAttribute('aria-pressed') === 'true' && !box.hidden){ close(); return; }
-    document.querySelectorAll('.sw').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
-    document.getElementById('swHint').hidden = true;
-    show(btn);
-  }));
 })();
 
 /* ===== climbing rose vines: broken sprigs, mixed rose sizes, layout randomised on each visit ===== */
