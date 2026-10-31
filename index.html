@@ -59,7 +59,7 @@ h2{font-family:var(--f-thai-accent);font-weight:400;color:var(--rose-deep);font-
 /* gallery: polaroid collage, sizes and order shuffled on every visit */
 .gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:clamp(64px,19vw,104px);grid-auto-flow:dense;gap:14px 12px;margin-top:10px;padding:6px 2px}
 .slot{position:relative;min-width:0;max-width:100%;background:#fff;padding:6px 6px 22px;border-radius:3px;box-shadow:0 1px 2px rgba(110,60,60,.12),0 10px 22px -12px rgba(110,60,60,.45);transform:rotate(var(--rot,0deg));transition:transform .35s cubic-bezier(.3,1.4,.5,1),box-shadow .3s;color:var(--ink-soft);font:inherit;font-size:12px;border:0;display:block;text-align:center}
-.slot.s11{grid-column:span 1;grid-row:span 1}.slot.s12{grid-column:span 1;grid-row:span 2}.slot.s21{grid-column:span 2;grid-row:span 1}.slot.s22{grid-column:span 2;grid-row:span 2}.slot.s32{grid-column:span 3;grid-row:span 2}
+.slot.s11{grid-column:span 1;grid-row:span 1}.slot.s12{grid-column:span 1;grid-row:span 2}.slot.s21{grid-column:span 2;grid-row:span 1}.slot.s22{grid-column:span 2;grid-row:span 2}.slot.s32{grid-column:span 3;grid-row:span 2}.slot.s42{grid-column:span 4;grid-row:span 2}
 .slot .ph{position:absolute;left:6px;right:6px;top:6px;bottom:22px;overflow:hidden;border-radius:1px;background:var(--tint,#fbe8ea);display:grid;place-items:center}
 .slot.s11 .ph,.slot.s21 .ph{bottom:6px}.slot.s11,.slot.s21{padding-bottom:6px}
 .slot .ph>img,.slot .ph>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%);transition:transform .8s ease}
@@ -719,19 +719,19 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
    เพิ่มหรือเปลี่ยนได้ที่นี่: {type:'image', src:'...'} หรือ {type:'video', src:'... .mp4', poster:'...'}
    ช่องที่ยังไม่มี src จะแสดงเป็นช่องว่างรอใส่ */
 const MEDIA = [
-  {type:'image', src:'photo-01.jpg', alt:'พรีเวดดิ้งริมอ่างเก็บน้ำ', cap:'by the sea', pos:'50% 70%'},
-  {type:'image', src:'photos/topa7258.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'with you', pos:'50% 35%'},
+  {type:'video', src:'move/move.mp4', poster:'move/poster.jpg', alt:'ภาพเคลื่อนไหวบนเนินหญ้า', cap:'run to you ♡', pos:'50% 60%', size:'s42', loop:true},
+  {type:'image', src:'photos/p1.jpg', alt:'เจ้าบ่าว', cap:'groom', pos:'50% 25%'},
+  {type:'image', src:'photos/topa7117.jpg', alt:'เจ้าสาว', cap:'bride', pos:'50% 40%'},
+  {type:'image', src:'photos/topa7199.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'with you', pos:'50% 30%'},
   {type:'image', src:'photos/topa7320.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'us ♡', pos:'50% 35%'},
-  {type:'image', src:'photos/topa7325.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'forever', pos:'50% 25%'},
   {type:'image', src:'photos/topa7350.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'sweet', pos:'50% 35%'},
-  {type:'image', src:'photos/topa7423.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'smile', pos:'50% 35%'},
-  {type:'image', src:'photos/topa7644.jpg', alt:'ขอแต่งงานบนเนินหญ้า', cap:'yes!', pos:'50% 75%'},
+  {type:'image', src:'photos/topa7415.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'smile', pos:'50% 30%'},
+  {type:'image', src:'photos/topa7423.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'forever', pos:'50% 35%'},
+  {type:'image', src:'photos/topa7640.jpg', alt:'ขอแต่งงานบนเนินหญ้า', cap:'yes!', pos:'50% 70%'},
+  {type:'image', src:'photos/topa7816.jpg', alt:'พรีเวดดิ้งบนเนินหญ้า', cap:'love', pos:'50% 65%'},
   {type:'image', src:'photos/topa8243.jpg', alt:'พรีเวดดิ้งริมน้ำ', cap:'together', pos:'50% 40%'},
-  {type:'image', src:'photos/topw7881.jpg', alt:'เจ้าบ่าว', cap:'groom', pos:'50% 30%'},
-  {type:'image', src:'photos/topw7886.jpg', alt:'เจ้าสาว', cap:'bride', pos:'50% 30%'},
-  {type:'image', src:'photos/topw8087.jpg', alt:'พรีเวดดิ้งริมน้ำ', cap:'our day', pos:'50% 50%'},
-  {type:'video'},
-  {type:'video'},
+  {type:'image', src:'photos/topw7915.jpg', alt:'พรีเวดดิ้งริมน้ำ', cap:'our day', pos:'50% 55%'},
+  {type:'image', src:'photos/topw7922.jpg', alt:'พรีเวดดิ้งกังหันลม', cap:'by the sea', pos:'50% 55%', size:'s32'},
 ];
 
 const g = document.getElementById('gallery');
@@ -749,31 +749,49 @@ const STK = [
   '<svg viewBox="0 0 24 24"><path fill="#f0c674" d="M12 1c1 6.5 3.5 9 10 10-6.5 1-9 3.5-10 10-1-6.5-3.5-9-10-10 6.5-1 9-3.5 10-10z"/></svg>',
   '<svg viewBox="0 0 24 24"><g fill="#f6b8c4"><circle cx="12" cy="6" r="4.2"/><circle cx="18" cy="11" r="4.2"/><circle cx="15.5" cy="18" r="4.2"/><circle cx="8.5" cy="18" r="4.2"/><circle cx="6" cy="11" r="4.2"/></g><circle cx="12" cy="12.5" r="3" fill="#f0c674"/></svg>'
 ];
-/* size layouts that fill a 4-column grid neatly; one is picked at random each time */
+/* size layouts for the portrait photos (items with a fixed `size` keep it);
+   each set fills the 4-column grid neatly. One is picked at random each time */
 const LAYOUTS = [
-  ['s22','s12','s12','s12','s12','s22','s22','s12','s12','s12','s12','s21','s21'],
-  ['s32','s12','s12','s12','s22','s22','s12','s12','s12','s12','s12','s11','s11'],
-  ['s12','s12','s22','s12','s12','s22','s12','s12','s22','s12','s12','s21','s21'],
-  ['s22','s12','s12','s22','s12','s12','s22','s12','s12','s22','s12','s11','s11']
+  ['s22','s12','s12','s22','s12','s12','s22','s12','s12','s22','s12'],
+  ['s12','s12','s22','s12','s12','s22','s12','s12','s22','s12','s22'],
+  ['s22','s22','s12','s12','s12','s12','s12','s12','s12','s12','s12'],
+  ['s12','s22','s12','s12','s12','s12','s22','s12','s12','s12','s12']
 ];
 const rand = n => Math.floor(Math.random() * n);
 const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--){ const j = rand(i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-const big = c => c === 's22' || c === 's32' || c === 's12';
+
+/* pick a random order + layout that tiles the 4-column grid with no gaps;
+   the motion clip (first item, full width) always opens the collage */
+function packGallery(){
+  const all = MEDIA.map((m, i) => ({...m, i}));
+  const head = all.filter(m => m.size === 's42'), rest = all.filter(m => m.size !== 's42');
+  for (let t = 0; t < 400; t++){
+    const free = LAYOUTS[rand(LAYOUTS.length)].slice();
+    const queue = head.concat(shuffle(rest)).map(m => ({m, size: m.size || free.shift() || 's12'}));
+    const hts = [0, 0, 0, 0], place = [], sizes = [], pos = [];
+    while (queue.length){
+      const low = Math.min(...hts), col = hts.indexOf(low);
+      let gap = 0; while (col + gap < 4 && hts[col + gap] === low) gap++;
+      const k = queue.findIndex(q => +q.size[1] <= gap);   // first item that fits this gap
+      if (k < 0) break;
+      const {m, size} = queue.splice(k, 1)[0], w = +size[1], h = +size[2];
+      place.push(m); sizes.push(size); pos.push({c: col + 1, r: low + 1, w, h});
+      for (let x = col; x < col + w; x++) hts[x] += h;
+    }
+    if (!queue.length && hts.every(v => v === hts[0])) return { place, sizes, pos };
+  }
+  const place = shuffle(all), free = LAYOUTS[0].slice();
+  return { place, sizes: place.map(m => m.size || free.shift() || 's12'), pos: [] };
+}
 
 function buildGallery(animate){
   g.innerHTML = '';
-  const order = shuffle(MEDIA.map((m, i) => ({...m, i})));
-  const sizes = LAYOUTS[rand(LAYOUTS.length)].slice(0, order.length);
-  /* give real photos/videos the larger frames first */
-  const sorted = order.slice().sort((a, b) => !!b.src - !!a.src);
-  const bigSlots = sizes.map((c, k) => k).filter(k => big(sizes[k]));
-  const smallSlots = sizes.map((c, k) => k).filter(k => !big(sizes[k]));
-  const place = new Array(order.length);
-  sorted.forEach(m => { const k = (m.src && bigSlots.length ? bigSlots : (smallSlots.length ? smallSlots : bigSlots)).splice(rand((m.src && bigSlots.length ? bigSlots : (smallSlots.length ? smallSlots : bigSlots)).length), 1)[0]; place[k] = m; });
+  const { place, sizes, pos } = packGallery();
   place.forEach((m, k) => {
     const size = sizes[k] || 's11';
     const el = document.createElement(m.src ? 'button' : 'div');
     el.className = 'slot ' + size + (animate ? ' drop-in' : '');
+    if (pos[k]){ el.style.gridColumn = pos[k].c + ' / span ' + pos[k].w; el.style.gridRow = pos[k].r + ' / span ' + pos[k].h; }
     el.style.setProperty('--rot', ((Math.random() * 6) - 3).toFixed(1) + 'deg');
     el.style.setProperty('--k', k);
     el.style.setProperty('--tint', TINTS[rand(TINTS.length)]);
@@ -807,7 +825,7 @@ let cur = 0, lastFocus = null;
 function showLB(){
   const m = filled[cur];
   stage.innerHTML = m.type === 'video'
-    ? `<video src="${m.src}" controls autoplay playsinline></video>`
+    ? `<video src="${m.src}" ${m.loop ? 'loop muted' : 'controls'} autoplay playsinline></video>`
     : `<img src="${m.src}" alt="${m.alt || 'ภาพพรีเวดดิ้ง'}">`;
   document.getElementById('lbC').textContent = `${cur + 1} / ${filled.length}`;
   document.getElementById('lbP').hidden = document.getElementById('lbN').hidden = filled.length < 2;
