@@ -720,8 +720,6 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
    ช่องที่ยังไม่มี src จะแสดงเป็นช่องว่างรอใส่ */
 const MEDIA = [
   {type:'video', src:'move/move.mp4', poster:'move/poster.jpg', alt:'ภาพเคลื่อนไหวบนเนินหญ้า', cap:'run to you ♡', pos:'50% 60%', size:'s42', loop:true},
-  {type:'image', src:'photos/p1.jpg', alt:'เจ้าบ่าว', cap:'groom', pos:'50% 25%'},
-  {type:'image', src:'photos/topa7117.jpg', alt:'เจ้าสาว', cap:'bride', pos:'50% 40%'},
   {type:'image', src:'photos/topa7199.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'with you', pos:'50% 30%'},
   {type:'image', src:'photos/topa7320.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'us ♡', pos:'50% 35%'},
   {type:'image', src:'photos/topa7350.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'sweet', pos:'50% 35%'},
@@ -752,10 +750,10 @@ const STK = [
 /* size layouts for the portrait photos (items with a fixed `size` keep it);
    each set fills the 4-column grid neatly. One is picked at random each time */
 const LAYOUTS = [
-  ['s22','s12','s12','s22','s12','s12','s22','s12','s12','s22','s12'],
-  ['s12','s12','s22','s12','s12','s22','s12','s12','s22','s12','s22'],
-  ['s22','s22','s12','s12','s12','s12','s12','s12','s12','s12','s12'],
-  ['s12','s22','s12','s12','s12','s12','s22','s12','s12','s12','s12']
+  ['s22','s12','s12','s22','s12','s12','s12','s12','s12'],
+  ['s12','s12','s22','s12','s12','s12','s22','s12','s12'],
+  ['s22','s12','s12','s22','s12','s12','s22','s12','s22'],
+  ['s12','s22','s12','s12','s22','s12','s22','s12','s22']
 ];
 const rand = n => Math.floor(Math.random() * n);
 const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--){ const j = rand(i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; };
