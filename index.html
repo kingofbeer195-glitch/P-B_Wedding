@@ -6,7 +6,7 @@
 <title>Plookrak &amp; Beer Wedding</title>
 <meta name="description" content="ขอเรียนเชิญร่วมงานมงคลสมรส ฉัตรชนก &amp; อนิรุทธิ์ · วันอาทิตย์ที่ 17 มกราคม 2570">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:wght@500;600;700&family=Oswald:wght@500&family=Italiana&family=Trirong:wght@300;400;500&family=Charm:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:wght@500;600;700&family=Oswald:wght@500&family=Italiana&family=Trirong:wght@300;400;500&family=Charm:wght@400;700&family=Caveat:wght@500;600&display=swap">
 <style>
 body{margin:0}img{max-width:100%}
 /* Layout: a single tall invitation "sheet" on blush paper, read top to bottom like the printed card, framed by its own watercolor florals */
@@ -57,7 +57,22 @@ h2{font-family:var(--f-thai-accent);font-weight:400;color:var(--rose-deep);font-
 
 /* photos */
 /* gallery: polaroid collage with a fixed layout */
-.gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:clamp(64px,19vw,104px);grid-auto-flow:dense;gap:14px 12px;margin-top:10px;padding:6px 2px}
+.gallery{position:relative;container-type:inline-size;margin:10px -8px 0;border-radius:6px;overflow:hidden;background:radial-gradient(120% 60% at 20% 10%,rgba(255,255,255,.35),transparent 60%),radial-gradient(90% 50% at 80% 90%,rgba(160,120,90,.12),transparent 70%),repeating-radial-gradient(circle at 30% 40%,rgba(120,90,60,.035) 0 1px,transparent 1px 3px),#e8dccb;box-shadow:inset 0 0 30px rgba(120,90,60,.18)}
+.pol{position:absolute;display:block;padding:1.8cqw 1.8cqw 7.4cqw;background:#fffdf9;border:0;border-radius:1px;box-shadow:0 1px 2px rgba(80,50,30,.18),0 1.6cqw 3.2cqw -1.2cqw rgba(80,50,30,.5);transform:rotate(var(--rot,0deg));transition:transform .35s cubic-bezier(.3,1.4,.5,1),box-shadow .3s;cursor:zoom-in;font:inherit;color:inherit}
+.pol .ph{position:relative;display:block;aspect-ratio:var(--ar,.75);overflow:hidden;background:#f3ece2}
+.pol .ph>img,.pol .ph>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%);transition:transform .8s ease}
+.pol .cap2{position:absolute;left:0;right:0;bottom:1.2cqw;font-family:"Caveat",var(--f-script);font-weight:500;color:#7a5a4c;font-size:max(13px,4.6cqw);line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 2cqw}
+.pol .tape{position:absolute;top:-2.2cqw;width:14cqw;height:4.4cqw;margin-left:-7cqw;background:rgba(214,193,160,.82);transform:rotate(var(--trot,-4deg));z-index:2;box-shadow:0 1px 1px rgba(0,0,0,.06);-webkit-mask:linear-gradient(90deg,transparent 0 2px,#000 2px calc(100% - 2px),transparent 0);mask:linear-gradient(90deg,transparent 0 2px,#000 2px calc(100% - 2px),transparent 0)}
+.pol .badge{position:absolute;right:2cqw;bottom:2cqw;width:8cqw;height:8cqw;max-width:34px;max-height:34px;border-radius:50%;background:rgba(255,253,252,.9);display:grid;place-items:center;z-index:1}
+.pol .badge svg{width:45%;height:45%;fill:var(--rose-deep)}
+.pol:hover,.pol:focus-visible{transform:rotate(0) scale(1.05);z-index:20!important;box-shadow:0 2px 4px rgba(80,50,30,.2),0 4cqw 6cqw -2cqw rgba(80,50,30,.55)}
+.pol:hover .ph>img{transform:scale(1.05)}
+.pol:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
+.note{position:absolute;padding:5cqw 4cqw 6cqw;text-align:center;color:#5d4336;transform:rotate(var(--rot,0deg));background:linear-gradient(rgba(150,170,190,.18) 1px,transparent 1px) 0 0/100% 3.4cqw,linear-gradient(90deg,rgba(150,170,190,.18) 1px,transparent 1px) 0 0/3.4cqw 100%,#fbfaf6;box-shadow:0 1.4cqw 3cqw -1cqw rgba(80,50,30,.45);clip-path:polygon(0 0,100% 0,100% 92%,96% 96%,92% 91%,87% 97%,82% 92%,76% 98%,70% 92%,64% 97%,58% 91%,52% 96%,46% 92%,40% 98%,34% 92%,28% 96%,22% 91%,16% 97%,10% 92%,5% 96%,0 92%);pointer-events:none}
+.note b{display:block;font-family:var(--f-script);font-weight:400;font-size:11cqw;line-height:1.1;color:var(--rose-deep)}
+.note p{margin:1.5cqw 0 2cqw;font-family:"Caveat",cursive;font-size:max(12px,4.2cqw);line-height:1.2}
+.note i{font-style:normal;font-family:"Caveat",cursive;font-size:max(11px,3.6cqw);letter-spacing:.04em;color:#8a6a5a}
+.note .clip{position:absolute;left:8%;top:-3cqw;width:5.5cqw;height:14cqw;fill:none;stroke:#9aa0a6;stroke-width:1.6;stroke-linecap:round}
 .slot{position:relative;min-width:0;max-width:100%;background:#fff;padding:6px 6px 22px;border-radius:3px;box-shadow:0 1px 2px rgba(110,60,60,.12),0 10px 22px -12px rgba(110,60,60,.45);transform:rotate(var(--rot,0deg));transition:transform .35s cubic-bezier(.3,1.4,.5,1),box-shadow .3s;color:var(--ink-soft);font:inherit;font-size:12px;border:0;display:block;text-align:center}
 .slot.s11{grid-column:span 1;grid-row:span 1}.slot.s12{grid-column:span 1;grid-row:span 2}.slot.s21{grid-column:span 2;grid-row:span 1}.slot.s22{grid-column:span 2;grid-row:span 2}.slot.s32{grid-column:span 3;grid-row:span 2}.slot.s42{grid-column:span 4;grid-row:span 2}
 .slot .ph{position:absolute;left:6px;right:6px;top:6px;bottom:22px;overflow:hidden;border-radius:1px;background:var(--tint,#fbe8ea);display:grid;place-items:center}
@@ -713,17 +728,17 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
    เพิ่มหรือเปลี่ยนได้ที่นี่: {type:'image', src:'...'} หรือ {type:'video', src:'... .mp4', poster:'...'}
    ช่องที่ยังไม่มี src จะแสดงเป็นช่องว่างรอใส่ */
 const MEDIA = [
-  {type:'video', src:'move/move.mp4', poster:'move/poster.jpg', alt:'ภาพเคลื่อนไหวบนเนินหญ้า', cap:'run to you ♡', pos:'50% 60%', size:'s42', loop:true},
-  {type:'image', src:'photos/topa7199.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'with you', pos:'50% 30%', size:'s22'},
-  {type:'image', src:'photos/topa7640.jpg', alt:'ขอแต่งงานบนเนินหญ้า', cap:'yes!', pos:'50% 70%', size:'s12'},
-  {type:'image', src:'photos/topa7816.jpg', alt:'พรีเวดดิ้งบนเนินหญ้า', cap:'love', pos:'50% 65%', size:'s12'},
-  {type:'image', src:'photos/topw7922.jpg', alt:'พรีเวดดิ้งกังหันลม', cap:'by the sea', pos:'50% 55%', size:'s32'},
-  {type:'image', src:'photos/topa7423.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'xoxo', pos:'50% 35%', size:'s12'},
-  {type:'image', src:'photos/topa7415.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'smile', pos:'50% 30%', size:'s22'},
-  {type:'image', src:'photos/topa7320.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'us ♡', pos:'50% 35%', size:'s12'},
-  {type:'image', src:'photos/topa8243.jpg', alt:'พรีเวดดิ้งริมน้ำ', cap:'cool', pos:'50% 40%', size:'s12'},
-  {type:'image', src:'photos/topa7350.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'sweet', pos:'50% 35%', size:'s22'},
-  {type:'image', src:'photos/topw7915.jpg', alt:'พรีเวดดิ้งริมน้ำ', cap:'our day', pos:'50% 55%', size:'s22'},
+  {type:'video', src:'move/move.mp4', poster:'move/poster.jpg', alt:'ภาพเคลื่อนไหวบนเนินหญ้า', cap:'run to you ♡', pos:'50% 60%', loop:true, at:[3,3,62,-3,3], ar:1.5},
+  {type:'image', src:'photos/topa7199.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'with you', pos:'50% 30%', at:[63,1,34,6,2], ar:.75},
+  {type:'image', src:'photos/topa7640.jpg', alt:'ขอแต่งงานบนเนินหญ้า', cap:'yes!', pos:'50% 70%', at:[-3,55,31,-8,4], ar:.75},
+  {type:'image', src:'photos/topa7816.jpg', alt:'พรีเวดดิ้งบนเนินหญ้า', cap:'love', pos:'50% 65%', at:[71,57,31,7,4], ar:.75},
+  {type:'image', src:'photos/topw7922.jpg', alt:'พรีเวดดิ้งกังหันลม', cap:'by the sea', pos:'50% 55%', at:[23,80,56,3,7], ar:1.5},
+  {type:'image', src:'photos/topa7423.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'xoxo', pos:'50% 35%', at:[-2,104,32,5,6], ar:.75},
+  {type:'image', src:'photos/topa7415.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'smile', pos:'50% 30%', at:[70,106,32,-6,6], ar:.75},
+  {type:'image', src:'photos/topa7320.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'us ♡', pos:'50% 35%', at:[34,124,30,-4,6], ar:.75},
+  {type:'image', src:'photos/topa8243.jpg', alt:'พรีเวดดิ้งริมน้ำ', cap:'cool', pos:'50% 40%', at:[-1,153,33,-5,8], ar:.75},
+  {type:'image', src:'photos/topa7350.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'sweet', pos:'50% 35%', at:[66,155,33,6,7], ar:.75},
+  {type:'image', src:'photos/topw7915.jpg', alt:'พรีเวดดิ้งริมน้ำ', cap:'our day', pos:'50% 55%', at:[31,171,37,2,9], ar:.75},
 ];
 
 const g = document.getElementById('gallery');
@@ -744,53 +759,42 @@ const STK = [
 const rand = n => Math.floor(Math.random() * n);
 const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--){ const j = rand(i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
-/* fixed order and frame sizes (set in MEDIA); positions are worked out on a
-   4-column grid so the collage tiles with no gaps */
-function packGallery(){
-  const place = MEDIA.map((m, i) => ({...m, i})), sizes = place.map(m => m.size || 's12');
-  const hts = [0, 0, 0, 0], pos = [];
-  for (const c of sizes){
-    const w = +c[1], h = +c[2], low = Math.min(...hts), col = hts.indexOf(low);
-    pos.push({c: col + 1, r: low + 1, w, h});
-    for (let x = col; x < Math.min(4, col + w); x++) hts[x] += h;
-  }
-  return { place, sizes, pos };
-}
-
-function buildGallery(animate){
+/* scrapbook collage: every polaroid has a fixed spot (MEDIA.at), they overlap
+   on a kraft-paper board with a note card in the middle */
+const NOTE = {at:[17,49,64,-2,10]};
+function buildGallery(){
   let seed = 20270117; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647, pick = n => Math.floor(rnd() * n);
   g.innerHTML = '';
-  const { place, sizes, pos } = packGallery();
-  place.forEach((m, k) => {
-    const size = sizes[k] || 's11';
-    const el = document.createElement(m.src ? 'button' : 'div');
-    el.className = 'slot ' + size + (animate ? ' drop-in' : '');
-    if (pos[k]){ el.style.gridColumn = pos[k].c + ' / span ' + pos[k].w; el.style.gridRow = pos[k].r + ' / span ' + pos[k].h; }
-    el.style.setProperty('--rot', ((rnd() * 6) - 3).toFixed(1) + 'deg');
-    el.style.setProperty('--k', k);
-    el.style.setProperty('--tint', TINTS[pick(TINTS.length)]);
+  let bottom = 0;
+  const put = (el, at, est) => {
+    const [x, y, w, r, z] = at;
+    el.style.cssText += `left:${x}%;top:calc(${y} * 1cqw);width:${w}%;--rot:${r}deg;z-index:${z}`;
+    bottom = Math.max(bottom, y + est);
+  };
+  MEDIA.forEach((m, i) => {
+    const el = document.createElement('button');
+    el.type = 'button'; el.className = 'pol';
     if (m.pos) el.style.setProperty('--pos', m.pos);
-    const tape = rnd() < .75 ? `<span class="tape" style="--tape:${TAPES[pick(TAPES.length)]};--trot:${(rnd()*14-7).toFixed(0)}deg"></span>` : '';
-    const stk = rnd() < .4 ? `<span class="stk" style="animation-delay:${(rnd()*2).toFixed(1)}s">${STK[pick(STK.length)]}</span>` : '';
-    const cap = `<span class="cap2">${m.cap || CAPS[pick(CAPS.length)]}</span>`;
-    let inner;
-    if (!m.src){
-      inner = `<span class="empty">${ICON[m.type]}<b>${m.type === 'video' ? 'วิดีโอ' : 'รูปพรีเวดดิ้ง'}</b></span>`;
-    } else if (m.type === 'video'){
-      inner = `<video src="${m.src}" ${m.poster ? `poster="${m.poster}"` : ''} muted loop playsinline autoplay preload="metadata"></video><span class="badge">${PLAY}</span>`;
-    } else {
-      inner = `<img src="${m.src}" alt="${m.alt || 'ภาพพรีเวดดิ้ง'}" loading="lazy">`;
-    }
-    el.innerHTML = `${tape}<span class="ph">${inner}</span>${cap}${stk}`;
-    if (m.src){
-      el.type = 'button';
-      el.setAttribute('aria-label', (m.type === 'video' ? 'เล่นวิดีโอ ' : 'ดูภาพ ') + (m.i + 1));
-      el.addEventListener('click', () => openLB(filled.findIndex(f => f.i === m.i)));
-    }
+    el.style.setProperty('--ar', m.ar || .75);
+    const tape = rnd() < .8 ? `<span class="tape" style="--trot:${(rnd()*16-8).toFixed(0)}deg;left:${(30 + rnd()*40).toFixed(0)}%"></span>` : '';
+    const inner = m.type === 'video'
+      ? `<video src="${m.src}" ${m.poster ? `poster="${m.poster}"` : ''} muted loop playsinline autoplay preload="metadata"></video><span class="badge">${PLAY}</span>`
+      : `<img src="${m.src}" alt="${m.alt || 'ภาพพรีเวดดิ้ง'}" loading="lazy">`;
+    el.innerHTML = `${tape}<span class="ph">${inner}</span><span class="cap2">${m.cap || ''}</span>`;
+    el.setAttribute('aria-label', (m.type === 'video' ? 'เล่นวิดีโอ ' : 'ดูภาพ ') + (i + 1));
+    el.addEventListener('click', () => openLB(filled.findIndex(f => f.i === i)));
+    put(el, m.at, m.at[2] / (m.ar || .75) + 9);
     g.appendChild(el);
   });
+  const note = document.createElement('div');
+  note.className = 'note'; note.setAttribute('aria-hidden', 'true');
+  note.innerHTML = `<svg class="clip" viewBox="0 0 20 52"><path d="M6 46V10a4 4 0 0 1 8 0v34a6 6 0 0 1-12 0V8a8 8 0 0 1 16 0v30"/></svg>
+    <b>Forever love</b><p>every moment with you<br>is a memory worth keeping</p><i>Plookrak &amp; Beer · 17.01.2027</i>`;
+  put(note, NOTE.at, 30);
+  g.appendChild(note);
+  g.style.aspectRatio = `100 / ${(bottom + 3).toFixed(1)}`;
 }
-buildGallery(false);
+buildGallery();
 
 /* lightbox */
 const lb = document.getElementById('lb'), stage = document.getElementById('lbStage');
