@@ -68,11 +68,6 @@ h2{font-family:var(--f-thai-accent);font-weight:400;color:var(--rose-deep);font-
 .pol:hover,.pol:focus-visible{transform:rotate(0) scale(1.05);z-index:20!important;box-shadow:0 2px 4px rgba(80,50,30,.2),0 4cqw 6cqw -2cqw rgba(80,50,30,.55)}
 .pol:hover .ph>img{transform:scale(1.05)}
 .pol:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
-.note{position:absolute;padding:5cqw 4cqw 6cqw;text-align:center;color:#5d4336;transform:rotate(var(--rot,0deg));background:linear-gradient(rgba(150,170,190,.18) 1px,transparent 1px) 0 0/100% 3.4cqw,linear-gradient(90deg,rgba(150,170,190,.18) 1px,transparent 1px) 0 0/3.4cqw 100%,#fbfaf6;box-shadow:0 1.4cqw 3cqw -1cqw rgba(80,50,30,.45);clip-path:polygon(0 0,100% 0,100% 92%,96% 96%,92% 91%,87% 97%,82% 92%,76% 98%,70% 92%,64% 97%,58% 91%,52% 96%,46% 92%,40% 98%,34% 92%,28% 96%,22% 91%,16% 97%,10% 92%,5% 96%,0 92%);pointer-events:none}
-.note b{display:block;font-family:var(--f-script);font-weight:400;font-size:11cqw;line-height:1.1;color:var(--rose-deep)}
-.note p{margin:1.5cqw 0 2cqw;font-family:"Caveat",cursive;font-size:max(12px,4.2cqw);line-height:1.2}
-.note i{font-style:normal;font-family:"Caveat",cursive;font-size:max(11px,3.6cqw);letter-spacing:.04em;color:#8a6a5a}
-.note .clip{position:absolute;left:8%;top:-3cqw;width:5.5cqw;height:14cqw;fill:none;stroke:#9aa0a6;stroke-width:1.6;stroke-linecap:round}
 .slot{position:relative;min-width:0;max-width:100%;background:#fff;padding:6px 6px 22px;border-radius:3px;box-shadow:0 1px 2px rgba(110,60,60,.12),0 10px 22px -12px rgba(110,60,60,.45);transform:rotate(var(--rot,0deg));transition:transform .35s cubic-bezier(.3,1.4,.5,1),box-shadow .3s;color:var(--ink-soft);font:inherit;font-size:12px;border:0;display:block;text-align:center}
 .slot.s11{grid-column:span 1;grid-row:span 1}.slot.s12{grid-column:span 1;grid-row:span 2}.slot.s21{grid-column:span 2;grid-row:span 1}.slot.s22{grid-column:span 2;grid-row:span 2}.slot.s32{grid-column:span 3;grid-row:span 2}.slot.s42{grid-column:span 4;grid-row:span 2}
 .slot .ph{position:absolute;left:6px;right:6px;top:6px;bottom:22px;overflow:hidden;border-radius:1px;background:var(--tint,#fbe8ea);display:grid;place-items:center}
@@ -732,13 +727,13 @@ const MEDIA = [
   {type:'image', src:'photos/topa7199.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'with you', pos:'50% 30%', at:[63,1,34,6,2], ar:.75},
   {type:'image', src:'photos/topa7640.jpg', alt:'ขอแต่งงานบนเนินหญ้า', cap:'yes!', pos:'50% 70%', at:[-3,55,31,-8,4], ar:.75},
   {type:'image', src:'photos/topa7816.jpg', alt:'พรีเวดดิ้งบนเนินหญ้า', cap:'love', pos:'50% 65%', at:[71,57,31,7,4], ar:.75},
-  {type:'image', src:'photos/topw7922.jpg', alt:'พรีเวดดิ้งกังหันลม', cap:'by the sea', pos:'50% 55%', at:[23,80,56,3,7], ar:1.5},
-  {type:'image', src:'photos/topa7423.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'xoxo', pos:'50% 35%', at:[-2,104,32,5,6], ar:.75},
-  {type:'image', src:'photos/topa7415.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'smile', pos:'50% 30%', at:[70,106,32,-6,6], ar:.75},
-  {type:'image', src:'photos/topa7320.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'us ♡', pos:'50% 35%', at:[34,124,30,-4,6], ar:.75},
-  {type:'image', src:'photos/topa8243.jpg', alt:'พรีเวดดิ้งริมน้ำ', cap:'cool', pos:'50% 40%', at:[-1,153,33,-5,8], ar:.75},
-  {type:'image', src:'photos/topa7350.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'sweet', pos:'50% 35%', at:[66,155,33,6,7], ar:.75},
-  {type:'image', src:'photos/topw7915.jpg', alt:'พรีเวดดิ้งริมน้ำ', cap:'our day', pos:'50% 55%', at:[31,171,37,2,9], ar:.75},
+  {type:'image', src:'photos/topw7922.jpg', alt:'พรีเวดดิ้งกังหันลม', cap:'by the sea', pos:'50% 55%', at:[23,54,56,3,7], ar:1.5},
+  {type:'image', src:'photos/topa7423.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'xoxo', pos:'50% 35%', at:[-2,100,32,5,6], ar:.75},
+  {type:'image', src:'photos/topa7415.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'smile', pos:'50% 30%', at:[70,102,32,-6,6], ar:.75},
+  {type:'image', src:'photos/topa7320.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'us ♡', pos:'50% 35%', at:[34,98,30,-4,8], ar:.75},
+  {type:'image', src:'photos/topa8243.jpg', alt:'พรีเวดดิ้งริมน้ำ', cap:'cool', pos:'50% 40%', at:[-1,148,33,-5,8], ar:.75},
+  {type:'image', src:'photos/topa7350.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'sweet', pos:'50% 35%', at:[66,150,33,6,7], ar:.75},
+  {type:'image', src:'photos/topw7915.jpg', alt:'พรีเวดดิ้งริมน้ำ', cap:'our day', pos:'50% 55%', at:[31,145,37,2,9], ar:.75},
 ];
 
 const g = document.getElementById('gallery');
@@ -760,8 +755,7 @@ const rand = n => Math.floor(Math.random() * n);
 const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--){ const j = rand(i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
 /* scrapbook collage: every polaroid has a fixed spot (MEDIA.at), they overlap
-   on a kraft-paper board with a note card in the middle */
-const NOTE = {at:[17,49,64,-2,10]};
+   on a kraft-paper board */
 function buildGallery(){
   let seed = 20270117; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647, pick = n => Math.floor(rnd() * n);
   g.innerHTML = '';
@@ -786,12 +780,6 @@ function buildGallery(){
     put(el, m.at, m.at[2] / (m.ar || .75) + 9);
     g.appendChild(el);
   });
-  const note = document.createElement('div');
-  note.className = 'note'; note.setAttribute('aria-hidden', 'true');
-  note.innerHTML = `<svg class="clip" viewBox="0 0 20 52"><path d="M6 46V10a4 4 0 0 1 8 0v34a6 6 0 0 1-12 0V8a8 8 0 0 1 16 0v30"/></svg>
-    <b>Forever love</b><p>every moment with you<br>is a memory worth keeping</p><i>Plookrak &amp; Beer · 17.01.2027</i>`;
-  put(note, NOTE.at, 30);
-  g.appendChild(note);
   g.style.aspectRatio = `100 / ${(bottom + 3).toFixed(1)}`;
 }
 buildGallery();
