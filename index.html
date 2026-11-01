@@ -13,7 +13,7 @@ body{margin:0}img{max-width:100%}
 :root{
   --paper:#fbf4f1; --sheet:#fffdfc; --ink:#5e4237; --ink-soft:#8a6f64;
   --rose:#c0767c; --rose-deep:#a85e66; --line:#e6d3cd;
-  --pink:#f6b8c4; --coral:#ef8a95; --peach:#fbdcc0;
+  --pink:#f6b8c4; --coral:#ef8a95; --peach:#fbdcc0; --cream:#f3e7cf;
   --f-script:"Pinyon Script","Great Vibes",cursive;
   --f-display:"Italiana","Cormorant Garamond",Georgia,serif;
   --f-thai:"Trirong","Sarabun",Georgia,serif;
@@ -56,7 +56,7 @@ h2{font-family:var(--f-thai-accent);font-weight:400;color:var(--rose-deep);font-
 .date-en b{font-weight:700;color:#9c4a53}
 
 /* photos */
-/* gallery: polaroid collage, sizes and order shuffled on every visit */
+/* gallery: polaroid collage with a fixed layout */
 .gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:clamp(64px,19vw,104px);grid-auto-flow:dense;gap:14px 12px;margin-top:10px;padding:6px 2px}
 .slot{position:relative;min-width:0;max-width:100%;background:#fff;padding:6px 6px 22px;border-radius:3px;box-shadow:0 1px 2px rgba(110,60,60,.12),0 10px 22px -12px rgba(110,60,60,.45);transform:rotate(var(--rot,0deg));transition:transform .35s cubic-bezier(.3,1.4,.5,1),box-shadow .3s;color:var(--ink-soft);font:inherit;font-size:12px;border:0;display:block;text-align:center}
 .slot.s11{grid-column:span 1;grid-row:span 1}.slot.s12{grid-column:span 1;grid-row:span 2}.slot.s21{grid-column:span 2;grid-row:span 1}.slot.s22{grid-column:span 2;grid-row:span 2}.slot.s32{grid-column:span 3;grid-row:span 2}.slot.s42{grid-column:span 4;grid-row:span 2}
@@ -89,13 +89,14 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
 /* invitation text */
 .parents{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;font-size:15px;line-height:1.9;margin:4px 0 22px}
 .parents p{margin:0}
+.nw{white-space:nowrap}
 .parents .and{font-family:var(--f-thai-accent);color:var(--rose);font-size:20px}
 .invite{margin:0 auto;max-width:34ch;text-wrap:balance}
 .couple{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center;margin-top:26px}
 .person{min-width:0}
-.person .en{font-family:var(--f-script);color:var(--rose);font-size:clamp(25px,7.2vw,46px);line-height:1.1;white-space:nowrap}
-.person .th{color:var(--rose-deep);font-size:15px}
-.couple .mid{width:52px}
+.person .en{font-family:var(--f-script);color:var(--rose);font-size:clamp(20px,5.6vw,46px);line-height:1.1;white-space:nowrap}
+.person .th{color:var(--rose-deep);font-size:clamp(13px,3.7vw,15px)}
+.couple .mid{width:clamp(38px,11vw,52px)}
 
 /* date block */
 .dateblock{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;max-width:420px;margin:0 auto}
@@ -104,7 +105,7 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
 .be{font-size:14px;color:var(--ink-soft);margin-top:4px;font-variant-numeric:tabular-nums}
 /* countdown: hourglass + flip clock */
 .countdown{margin-top:24px;display:flex;flex-direction:column;align-items:center;gap:12px}
-.hg{width:44px;height:66px;overflow:visible}
+.hg{width:30px;height:45px;overflow:visible}
 .hg .rot{transform-origin:22px 33px;transform-box:view-box;animation:hgflip 60s linear infinite;animation-delay:var(--hgd,0s)}
 .hg .sTop{transform-origin:22px 30px;transform-box:view-box;animation:hgtop 60s linear infinite;animation-delay:var(--hgd,0s)}
 .hg .sBot{transform-origin:22px 59px;transform-box:view-box;animation:hgbot 60s linear infinite;animation-delay:var(--hgd,0s)}
@@ -237,7 +238,7 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
 @media (max-width:400px){.places{gap:10px}.place b{font-size:17px}.pl-ico{width:50px;height:50px}.pl-ico svg{width:30px;height:30px}}
 
 .foot{padding:30px 20px 22px;font-size:14px;color:var(--ink-soft);padding-right:calc(clamp(118px,30vw,160px) - 24px)}
-.sorry{display:flex;align-items:flex-end;gap:10px;text-align:left;min-height:clamp(120px,31vw,166px)}
+.sorry{display:flex;align-items:flex-end;gap:10px;text-align:left}
 .sorry-pic{position:relative;flex:none;width:clamp(66px,18vw,100px);aspect-ratio:1;max-width:100%}
 .sorry-pic img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 0 0 1px #f3d6da,0 10px 20px -12px rgba(150,70,80,.6);animation:bow 3.2s ease-in-out infinite;transform-origin:50% 90%}
 @keyframes bow{0%,60%,100%{transform:rotate(0)}70%{transform:rotate(-6deg) translateY(2px)}80%{transform:rotate(-6deg) translateY(2px)}90%{transform:rotate(0)}}
@@ -364,7 +365,7 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
 .rv.in .scene{animation:pop .9s cubic-bezier(.3,1.4,.5,1) .15s both}
 @media (prefers-reduced-motion:reduce){.hero-bg *{animation:none!important}}
 @media (prefers-reduced-motion:reduce){.reveal{animation:none}#petals{display:none}.seal,.hint::before,.rv.in,.rv.in *,.play *,.ico *,.spark,.rings *,.logo,.beat *{animation:none!important}}
-@media (max-width:420px){section{padding:34px 20px}.parents{font-size:14px;gap:6px}.dateblock .day{font-size:60px}.dateblock .side{font-size:16px}}
+@media (max-width:420px){section{padding:34px 20px}.parents{font-size:clamp(12px,3.5vw,14px);gap:6px}.dateblock .day{font-size:60px}.dateblock .side{font-size:16px}}
 
 /* climbing rose vines along both edges of the card; they grow as you scroll */
 .sheet-wrap{position:relative;max-width:560px;margin:0 auto;--vw:58px}
@@ -499,10 +500,8 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
   <div class="rule"></div>
 
   <section aria-labelledby="h-photo">
-    <div class="eyebrow">Pre-wedding</div>
     <h2 id="h-photo">ภาพแห่งความทรงจำ</h2>
     <div class="gallery" id="gallery"></div>
-    <button class="shuffle" id="shuffle" type="button"><svg viewBox="0 0 24 24"><path d="M3 7h3c4 0 6 10 10 10h5M18 14l3 3-3 3M3 17h3c1.6 0 2.8-1.4 3.9-3.2M13.2 9.4C14.2 8 15.3 7 16 7h5M18 4l3 3-3 3"/></svg>สลับภาพแบบสุ่ม</button>
   </section>
 
   <div class="rule"></div>
@@ -511,15 +510,15 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
     <div class="eyebrow">The Invitation</div>
     <h2 id="h-inv">ขอเรียนเชิญ</h2>
     <div class="parents">
-      <p>นายจำปี ชินศรี<br>นางนุช ชินศรี</p>
+      <p><span class="nw">นายจำปี</span> <span class="nw">ชินศรี</span><br><span class="nw">นางนุช</span> <span class="nw">ชินศรี</span></p>
       <span class="and">และ</span>
-      <p>นายเอนกชัย พัชรวิจิตร<br>นางจำเป็น พัชรวิจิตร</p>
+      <p><span class="nw">นายเอนกชัย</span> <span class="nw">พัชรวิจิตร</span><br><span class="nw">นางจำเป็น</span> <span class="nw">พัชรวิจิตร</span></p>
     </div>
     <p class="invite">มีความยินดีขอเรียนเชิญท่านเพื่อเป็นเกียรติ<br>เนื่องในพิธีมงคลสมรส ระหว่าง</p>
     <div class="couple">
-      <div class="person"><div class="en shine-text">Chatchanok</div><div class="th">นางสาวฉัตรชนก เสนกลาง</div></div>
+      <div class="person"><div class="en shine-text">Chatchanok</div><div class="th"><span class="nw">นางสาวฉัตรชนก</span> <span class="nw">เสนกลาง</span></div></div>
       <img class="flower mid" src="data:image/jpeg;base64,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" alt="">
-      <div class="person"><div class="en shine-text" style="animation-delay:2.6s">Anirut</div><div class="th">นายอนิรุทธิ์ พัชรวิจิตร</div></div>
+      <div class="person"><div class="en shine-text" style="animation-delay:2.6s">Anirut</div><div class="th"><span class="nw">นายอนิรุทธิ์</span> <span class="nw">พัชรวิจิตร</span></div></div>
     </div>
     <svg class="beat" viewBox="0 0 300 40" aria-hidden="true">
       <path class="ln" pathLength="1" d="M0 22H98L106 10 115 34 122 16 128 22H136"/>
@@ -625,13 +624,13 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
     <div class="swatches" role="list" aria-label="โทนสีการแต่งกาย">
       <span class="sw" role="listitem"><i style="background:var(--pink)"></i>ชมพูอ่อน</span>
       <span class="sw" role="listitem"><i style="background:var(--coral)"></i>ชมพูกุหลาบ</span>
-      <span class="sw" role="listitem"><i style="background:var(--peach)"></i>พีช</span>
+      <span class="sw" role="listitem"><i style="background:var(--cream)"></i>ครีม</span>
     </div>
   </section>
 
   <div class="rule"></div>
 
-  <section aria-labelledby="h-loc">
+  <section aria-labelledby="h-loc" style="padding-bottom:6px">
     <div class="eyebrow">Location</div>
     <h2 id="h-loc">การเดินทาง</h2>
     <div class="places">
@@ -715,16 +714,16 @@ button.slot:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px}
    ช่องที่ยังไม่มี src จะแสดงเป็นช่องว่างรอใส่ */
 const MEDIA = [
   {type:'video', src:'move/move.mp4', poster:'move/poster.jpg', alt:'ภาพเคลื่อนไหวบนเนินหญ้า', cap:'run to you ♡', pos:'50% 60%', size:'s42', loop:true},
-  {type:'image', src:'photos/topa7199.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'with you', pos:'50% 30%'},
-  {type:'image', src:'photos/topa7320.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'us ♡', pos:'50% 35%'},
-  {type:'image', src:'photos/topa7350.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'sweet', pos:'50% 35%'},
-  {type:'image', src:'photos/topa7415.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'smile', pos:'50% 30%'},
-  {type:'image', src:'photos/topa7423.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'forever', pos:'50% 35%'},
-  {type:'image', src:'photos/topa7640.jpg', alt:'ขอแต่งงานบนเนินหญ้า', cap:'yes!', pos:'50% 70%'},
-  {type:'image', src:'photos/topa7816.jpg', alt:'พรีเวดดิ้งบนเนินหญ้า', cap:'love', pos:'50% 65%'},
-  {type:'image', src:'photos/topa8243.jpg', alt:'พรีเวดดิ้งริมน้ำ', cap:'together', pos:'50% 40%'},
-  {type:'image', src:'photos/topw7915.jpg', alt:'พรีเวดดิ้งริมน้ำ', cap:'our day', pos:'50% 55%'},
+  {type:'image', src:'photos/topa7199.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'with you', pos:'50% 30%', size:'s22'},
+  {type:'image', src:'photos/topa7640.jpg', alt:'ขอแต่งงานบนเนินหญ้า', cap:'yes!', pos:'50% 70%', size:'s12'},
+  {type:'image', src:'photos/topa7816.jpg', alt:'พรีเวดดิ้งบนเนินหญ้า', cap:'love', pos:'50% 65%', size:'s12'},
   {type:'image', src:'photos/topw7922.jpg', alt:'พรีเวดดิ้งกังหันลม', cap:'by the sea', pos:'50% 55%', size:'s32'},
+  {type:'image', src:'photos/topa7423.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'xoxo', pos:'50% 35%', size:'s12'},
+  {type:'image', src:'photos/topa7415.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'smile', pos:'50% 30%', size:'s22'},
+  {type:'image', src:'photos/topa7320.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'us ♡', pos:'50% 35%', size:'s12'},
+  {type:'image', src:'photos/topa8243.jpg', alt:'พรีเวดดิ้งริมน้ำ', cap:'cool', pos:'50% 40%', size:'s12'},
+  {type:'image', src:'photos/topa7350.jpg', alt:'พรีเวดดิ้งในสตูดิโอ', cap:'sweet', pos:'50% 35%', size:'s22'},
+  {type:'image', src:'photos/topw7915.jpg', alt:'พรีเวดดิ้งริมน้ำ', cap:'our day', pos:'50% 55%', size:'s22'},
 ];
 
 const g = document.getElementById('gallery');
@@ -742,42 +741,24 @@ const STK = [
   '<svg viewBox="0 0 24 24"><path fill="#f0c674" d="M12 1c1 6.5 3.5 9 10 10-6.5 1-9 3.5-10 10-1-6.5-3.5-9-10-10 6.5-1 9-3.5 10-10z"/></svg>',
   '<svg viewBox="0 0 24 24"><g fill="#f6b8c4"><circle cx="12" cy="6" r="4.2"/><circle cx="18" cy="11" r="4.2"/><circle cx="15.5" cy="18" r="4.2"/><circle cx="8.5" cy="18" r="4.2"/><circle cx="6" cy="11" r="4.2"/></g><circle cx="12" cy="12.5" r="3" fill="#f0c674"/></svg>'
 ];
-/* size layouts for the portrait photos (items with a fixed `size` keep it);
-   each set fills the 4-column grid neatly. One is picked at random each time */
-const LAYOUTS = [
-  ['s22','s12','s12','s22','s12','s12','s12','s12','s12'],
-  ['s12','s12','s22','s12','s12','s12','s22','s12','s12'],
-  ['s22','s12','s12','s22','s12','s12','s22','s12','s22'],
-  ['s12','s22','s12','s12','s22','s12','s22','s12','s22']
-];
 const rand = n => Math.floor(Math.random() * n);
 const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--){ const j = rand(i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
-/* pick a random order + layout that tiles the 4-column grid with no gaps;
-   the motion clip (first item, full width) always opens the collage */
+/* fixed order and frame sizes (set in MEDIA); positions are worked out on a
+   4-column grid so the collage tiles with no gaps */
 function packGallery(){
-  const all = MEDIA.map((m, i) => ({...m, i}));
-  const head = all.filter(m => m.size === 's42'), rest = all.filter(m => m.size !== 's42');
-  for (let t = 0; t < 400; t++){
-    const free = LAYOUTS[rand(LAYOUTS.length)].slice();
-    const queue = head.concat(shuffle(rest)).map(m => ({m, size: m.size || free.shift() || 's12'}));
-    const hts = [0, 0, 0, 0], place = [], sizes = [], pos = [];
-    while (queue.length){
-      const low = Math.min(...hts), col = hts.indexOf(low);
-      let gap = 0; while (col + gap < 4 && hts[col + gap] === low) gap++;
-      const k = queue.findIndex(q => +q.size[1] <= gap);   // first item that fits this gap
-      if (k < 0) break;
-      const {m, size} = queue.splice(k, 1)[0], w = +size[1], h = +size[2];
-      place.push(m); sizes.push(size); pos.push({c: col + 1, r: low + 1, w, h});
-      for (let x = col; x < col + w; x++) hts[x] += h;
-    }
-    if (!queue.length && hts.every(v => v === hts[0])) return { place, sizes, pos };
+  const place = MEDIA.map((m, i) => ({...m, i})), sizes = place.map(m => m.size || 's12');
+  const hts = [0, 0, 0, 0], pos = [];
+  for (const c of sizes){
+    const w = +c[1], h = +c[2], low = Math.min(...hts), col = hts.indexOf(low);
+    pos.push({c: col + 1, r: low + 1, w, h});
+    for (let x = col; x < Math.min(4, col + w); x++) hts[x] += h;
   }
-  const place = shuffle(all), free = LAYOUTS[0].slice();
-  return { place, sizes: place.map(m => m.size || free.shift() || 's12'), pos: [] };
+  return { place, sizes, pos };
 }
 
 function buildGallery(animate){
+  let seed = 20270117; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647, pick = n => Math.floor(rnd() * n);
   g.innerHTML = '';
   const { place, sizes, pos } = packGallery();
   place.forEach((m, k) => {
@@ -785,13 +766,13 @@ function buildGallery(animate){
     const el = document.createElement(m.src ? 'button' : 'div');
     el.className = 'slot ' + size + (animate ? ' drop-in' : '');
     if (pos[k]){ el.style.gridColumn = pos[k].c + ' / span ' + pos[k].w; el.style.gridRow = pos[k].r + ' / span ' + pos[k].h; }
-    el.style.setProperty('--rot', ((Math.random() * 6) - 3).toFixed(1) + 'deg');
+    el.style.setProperty('--rot', ((rnd() * 6) - 3).toFixed(1) + 'deg');
     el.style.setProperty('--k', k);
-    el.style.setProperty('--tint', TINTS[rand(TINTS.length)]);
+    el.style.setProperty('--tint', TINTS[pick(TINTS.length)]);
     if (m.pos) el.style.setProperty('--pos', m.pos);
-    const tape = Math.random() < .75 ? `<span class="tape" style="--tape:${TAPES[rand(TAPES.length)]};--trot:${(Math.random()*14-7).toFixed(0)}deg"></span>` : '';
-    const stk = Math.random() < .4 ? `<span class="stk" style="animation-delay:${(Math.random()*2).toFixed(1)}s">${STK[rand(STK.length)]}</span>` : '';
-    const cap = `<span class="cap2">${m.cap || CAPS[rand(CAPS.length)]}</span>`;
+    const tape = rnd() < .75 ? `<span class="tape" style="--tape:${TAPES[pick(TAPES.length)]};--trot:${(rnd()*14-7).toFixed(0)}deg"></span>` : '';
+    const stk = rnd() < .4 ? `<span class="stk" style="animation-delay:${(rnd()*2).toFixed(1)}s">${STK[pick(STK.length)]}</span>` : '';
+    const cap = `<span class="cap2">${m.cap || CAPS[pick(CAPS.length)]}</span>`;
     let inner;
     if (!m.src){
       inner = `<span class="empty">${ICON[m.type]}<b>${m.type === 'video' ? 'วิดีโอ' : 'รูปพรีเวดดิ้ง'}</b></span>`;
@@ -810,7 +791,6 @@ function buildGallery(animate){
   });
 }
 buildGallery(false);
-document.getElementById('shuffle').addEventListener('click', () => buildGallery(!matchMedia('(prefers-reduced-motion: reduce)').matches));
 
 /* lightbox */
 const lb = document.getElementById('lb'), stage = document.getElementById('lbStage');
